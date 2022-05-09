@@ -1,0 +1,64 @@
+extends layout.pug
+    //- This is a rough skeleton of the main lists page -- expect this to be changed heavily over time.
+    //- All variable names etc are placeholders and not final.
+
+    //- Main content Wrapper
+    div(id='content')
+        //- Side nav bar
+        div(id='side-nav-bar')
+          //- Wrapper for img logo
+          div(id='logo-container')
+          //- Begin list of lists
+          div(id='list-column')
+            //- Review before merging!
+            //- Create a link to each list present in our Db
+            ul(class='lists')
+              each list in lists
+                //- Click listener to display tasks in list.
+                li= list.name
+                //- End List population
+
+        //- Main task list - will be populated after selecting a list.
+        div(id='task-content-wrapper')
+
+          //- Create new task form
+          div(id='form-wrapper')
+          form(id='new-task-form')
+            label Task Name *
+            input(type='text' name='name' required)
+            label Priority
+            input(type='number' name='priority')
+            label Due Date:
+            input(type='text' name='dueDate')
+            label Start Date
+            input(type='text' name='startDate')
+            label Repeating?
+            select(name='repeating')
+              option(value=true)= True
+              option(value=false)= False
+            label Estimated Time
+            input(type='number' name='estimatedTime')
+            label Additional Notes
+            textarea(name='note')
+            button(type='submit') Submit
+
+          //- Task List Wrapper
+          div(id='table-wrapper')
+          table
+            tr
+              th Completed?
+              th Task
+            each task in tasks
+              //-Populate the task list with tasks
+              a(href='/tasks/#{task.id}')
+              tr
+                td=task.completed
+                td=task.name
+        div(id='task-detail-pane')
+            h1=task.name
+             ul
+              li=task.dueDate
+              li=task.priority
+              li=task.repeating
+              li=task.note
+              li=task.id
