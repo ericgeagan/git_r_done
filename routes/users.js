@@ -117,7 +117,7 @@ router.get('/login', csrfProtection, (req, res) => {
 });
 
 
-router.post('/user/login', csrfProtection, loginValidators,
+router.post('/login', csrfProtection, loginValidators,
 asyncHandler(async (req, res) => {
   const {
     emailAddress,
@@ -129,17 +129,16 @@ asyncHandler(async (req, res) => {
 
   if (validatorErrors.isEmpty()) {
     // Attempt to get the user by their email address.
-    const user = await db.User.findOne({ where: { emailAddress } });
-
+    const user = await db.User.findOne({ where: { email: emailAddress } });
+    // console.log(user)
     if (user !== null) {
       // If the user exists then compare their password
       // to the provided password.
       const passwordMatch = await bcrypt.compare(password, user.hashedPassword.toString());
-
+      // console.log(passwordMatch)
       if (passwordMatch) {
-
         loginUser(req, res, user);
-        return res.redirect('/');
+        // return res.redirect('/');
       }
     }
 
@@ -161,7 +160,7 @@ asyncHandler(async (req, res) => {
 
 router.post('/logout', (req, res) => {
   logoutUser(req, res);
-  res.redirect('/user/login')
+  res.redirect('/login')
 })
 
 
