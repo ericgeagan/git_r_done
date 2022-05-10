@@ -29,7 +29,7 @@ router.get('/', csrfProtection, asyncHandler(async(req, res) => {
 router.get('/form', csrfProtection, asyncHandler(async(req, res) => {
   const createlist = await db.List.build();
   res.render('list-form', {
-    title: 'New List',
+    // title: 'New List',
     createlist,
     csrfToken: req.csrfToken(),
   });
@@ -39,7 +39,7 @@ router.get('/:listId', csrfProtection, asyncHandler(async(req, res) => {
    //grab id from the params
    let listId = req.params.listId
 
-lists
+START DEBUGGING HERE
     //db queries
     const lists = await db.List.findAll()
     const tasks = await db.Task.findAll({where: {
@@ -51,7 +51,7 @@ lists
 }))
 //route to create new list
 
-router.get('/lists/:id(\\d+)', asyncHandler(async (req, res) => {
+router.get('/', asyncHandler(async (req, res) => {
     const listId = parseInt(req.params.id, 10);
     const list = await db.List.findByPk(listId, { include: ['tasks'] });
     res.render('lists', { list });
@@ -65,8 +65,8 @@ router.get('/lists/:id(\\d+)', asyncHandler(async (req, res) => {
       .withMessage('List Name must not be more than 50 characters long'),
   ];
 
-
-  router.post('/lists', csrfProtection, listValidators,
+// route to post new list
+  router.post('/', csrfProtection, listValidators,
     asyncHandler(async (req, res) => {
       const {
         name
@@ -91,21 +91,25 @@ router.get('/lists/:id(\\d+)', asyncHandler(async (req, res) => {
         });
       }
     }));
-
-//   router.get('/park/edit/:id(\\d+)', csrfProtection,
-//     asyncHandler(async (req, res) => {
-//       const parkId = parseInt(req.params.id, 10);
-//       const park = await db.Park.findByPk(parkId);
-//       res.render('park-edit', {
-//         title: 'Edit Park',
-//         park,
-//         csrfToken: req.csrfToken(),
-//       });
-//     }));
-
-  router.post('/lists/edit/:id(\\d+)', csrfProtection, listValidators,
+// route to get edit list
+  router.get('/:id(\\d+)/edit', csrfProtection,
     asyncHandler(async (req, res) => {
       const listId = parseInt(req.params.id, 10);
+      console.log('listId', listId, "9898989898")
+      const list = await db.List.findByPk(listId);
+      res.render('edit-list-form', {
+        // title: 'Edit List',
+        listId,
+        list,
+        csrfToken: req.csrfToken(),
+      });
+    }));
+//route to post edit of list
+  router.post('/:id(\\d+)/edit', csrfProtection, listValidators,
+    asyncHandler(async (req, res) => {
+
+      const listId = parseInt(req.params.id, 10);
+      console.log(listId, "1111111101010101010100001010101")
       const listToUpdate = await db.List.findByPk(listId);
 
       const {
@@ -114,18 +118,19 @@ router.get('/lists/:id(\\d+)', asyncHandler(async (req, res) => {
 
       const list = {
         name,
-        userId: listId
+
+
       };
 
       const validatorErrors = validationResult(req);
 
       if (validatorErrors.isEmpty()) {
-        await listToUpdate.update(park);
+        await listToUpdate.update(list);
         res.redirect(`/lists/${listId}`); // THIS MAY NEED ATTENTION
       } else {
         const errors = validatorErrors.array().map((error) => error.msg);
         res.render('lists', {
-
+          listId: 3,
           list: { ...list, id: listId },
           errors,
           csrfToken: req.csrfToken(),
@@ -144,7 +149,7 @@ router.get('/lists/:id(\\d+)', asyncHandler(async (req, res) => {
 //       });
 //     }));
 
-  router.post('/lists/delete/:id(\\d+)', csrfProtection,
+  router.post('/:id(\\d+)/delete', csrfProtection,
 // router.post('/lists/:id', csrfProtection,
   asyncHandler(async (req, res) => {
         console.log("DELETE ROUTE HIT")

@@ -1,0 +1,9 @@
+div(id='form-wrapper')
+    form(id='list-form' action=`/lists/${listId}/edit` method='post')
+        input(type='hidden' name='_csrf' value=csrfToken)
+        label List Name *
+        input(type='text' name='name' class='list-name' required)
+        button(type='submit') Submit
+div
+    form(id='delete?' action=`/lists/${listId}/delete` method='post')
+        button(type='submit') Delete
