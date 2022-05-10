@@ -74,6 +74,7 @@ router.get('/register', csrfProtection, (req, res) => {
   })
 })
 
+// Create new user
 router.post('/register', csrfProtection, registerValidators, asyncHandler(async (req, res, next) => {
   const { username, emailAddress, password } = req.body
   const hashedPassword = await bcrypt.hash(password, 10)
@@ -85,12 +86,13 @@ router.post('/register', csrfProtection, registerValidators, asyncHandler(async 
   })
 
   const validatorErrors = validationResult(req);
-  console.log(validatorErrors)
+  // console.log(validatorErrors)
   if (validatorErrors.isEmpty()) {
     const hashedPassword = await bcrypt.hash(password, 10);
     user.hashedPassword = hashedPassword;
     await user.save();
-    res.redirect('/');
+    alert(`User ${username} has been created!`)
+    res.redirect('/users/login');
   } else {
     const errors = validatorErrors.array().map((error) => error.msg);
     res.render('user-register', {

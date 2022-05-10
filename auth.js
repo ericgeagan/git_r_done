@@ -8,7 +8,7 @@ const loginUser = (req, res, user) => {
     }
     req.session.save(() => {
        // console.log(req.session, "line 100000")
-        res.redirect('/')
+        res.redirect('/lists')
     })
 }
 const restoreUser = async (req, res, next) => {
