@@ -2,7 +2,7 @@
 const db = require('./db/models');
 
 const loginUser = (req, res, user) => {
-    console.log(req.session, "LINE %%%%%%%")
+    // console.log(req.session, "LINE %%%%%%%")
     req.session.auth = {
         userId: user.id,
     }
@@ -12,7 +12,7 @@ const loginUser = (req, res, user) => {
     })
 }
 const restoreUser = async (req, res, next) => {
-    console.log(req.session)
+    // console.log(req.session)
     // log the session obj to the console
     if(req.session.auth) {
         const {userId} = req.session.auth;
@@ -33,9 +33,9 @@ const restoreUser = async (req, res, next) => {
             next(err);
         }
     } else {
-        console.log("IAM HEREEEEEEE")
+        // console.log("IAM HEREEEEEEE")
         res.locals.authenticated = false;
-        console.log(res.locals.authenticated)
+        // console.log(res.locals.authenticated)
         next()
     }
 }
