@@ -27,6 +27,16 @@ const taskValidators = [
 		.withMessage("Note must not be more than 280 characters long")
 ]
 
+//Get new task form
+router.get('/form', csrfProtection, asyncHandler(async(req, res) => {
+	const createTask = await db.Task.build();
+	res.render('tasks-form', {
+	  title: 'New Task',
+	  createTask,
+	  csrfToken: req.csrfToken(),
+	});
+  }));
+
 // Get all tasks for a specific list
 router.get('/list/:id(\\d+)', asyncHandler(async (req, res, next) => {
 	const listId = parseInt(req.params.id)
@@ -48,27 +58,27 @@ router.get('/:id(\\d+)', asyncHandler(async (req, res, next) => {
 
 // Create a single task
 router.post('/', taskValidators, handleValidationErrors, asyncHandler(async (req, res) => {
-	const { 
-		name, 
-		priority, 
-		dueDate, 
-		startDate, 
-		repeating, 
-		completed, 
-		estimatedTime, 
-		note, 
-		listId 
+	const {
+		name,
+		priority,
+		dueDate,
+		startDate,
+		repeating,
+		completed,
+		estimatedTime,
+		note,
+		listId
 	} = req.body
-	const task = await Task.create({ 
-		name, 
-		priority, 
-		dueDate, 
-		startDate, 
-		repeating, 
-		completed, 
-		estimatedTime, 
-		note, 
-		listId 
+	const task = await Task.create({
+		name,
+		priority,
+		dueDate,
+		startDate,
+		repeating,
+		completed,
+		estimatedTime,
+		note,
+		listId
 	})
 	res.json(task)
 }))

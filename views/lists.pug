@@ -8,6 +8,7 @@ div(id='content')
   div(id='side-nav-bar')
     //- Wrapper for img logo
     div(id='logo-container')
+      a(href='/lists/form') Create new list form
       //- Begin list of lists
       div(id='list-column')
         //- Review before merging!
@@ -20,42 +21,20 @@ div(id='content')
 
   //- Main task list - will be populated after selecting a list.
   div(id='task-content-wrapper')
-
-    //- Create new task form
-    //- div(id='form-wrapper')
-    //- form(id='new-task-form')
-    //-   label Task Name *
-    //-   input(type='text' name='name' required)
-    //-   label Priority
-    //-   input(type='number' name='priority')
-    //-   label Due Date:
-    //-   input(type='text' name='dueDate')
-    //-   label Start Date
-    //-   input(type='text' name='startDate')
-    //-   label Repeating?
-    //-   select(name='repeating')
-    //-     option(value=true)= True
-    //-     option(value=false)= False
-    //-   label Estimated Time
-    //-   input(type='number' name='estimatedTime')
-    //-   label Additional Notes
-    //-   textarea(name='note')
-    //-   button(type='submit') Submit
-
-          //- Task List Wrapper
+    //- Task List Wrapper
     div(id='table-wrapper')
-    table
-      thead(class="thead")
+      a(href='/tasks/form') Create new task form
+      table
         tr
           th Completed?
           th Task
-      tbody
-        each task in tasks
-          tr
-            td=task.completed
-            td=task.name
-          div(id='task-detail-pane')
-
+          each task in tasks
+            //-Populate the task list with tasks
+            a(href='/tasks/#{task.id}')
+            tr
+              td=task.completed
+              td=task.name
+            div(id='task-detail-pane')
               h1=task.name
                 ul
                   li=task.dueDate
