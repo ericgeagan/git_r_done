@@ -32,7 +32,9 @@ router.get('/:listId', csrfProtection, asyncHandler(async(req, res) => {
 
     //db queries
     const lists = await db.List.findAll()
-    const tasks = await db.Task.findAll()
+    const tasks = await db.Task.findAll({where: {
+        listId
+    }})
     const list = await db.List.findByPk(listId)
     //maybe add titles or other variables later
     res.render('lists', {lists, list, tasks})
@@ -62,7 +64,7 @@ router.get('/lists/:id(\\d+)', asyncHandler(async (req, res) => {
 //     });
 //   });
 
-  router.post('/lists/add', csrfProtection, listValidators,
+  router.post('/lists', csrfProtection, listValidators,
     asyncHandler(async (req, res) => {
       const {
         name
