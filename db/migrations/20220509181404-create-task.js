@@ -37,7 +37,11 @@ module.exports = {
       },
       listId: {
         allowNull: false,
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        references: {
+          model: "Lists",
+          key: "id"
+        }
       },
       createdAt: {
         allowNull: false,
