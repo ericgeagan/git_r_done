@@ -1,6 +1,6 @@
 const {
   db: { username, password, database, host },
-  sessionSecret: { sessionSecret }
+  sessionSecret
 } = require('./index');
 
 module.exports = {
