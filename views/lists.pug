@@ -44,21 +44,23 @@ div(id='content')
 
           //- Task List Wrapper
     div(id='table-wrapper')
-      table
+    table
+      thead(class="thead")
         tr
           th Completed?
           th Task
-          //- each task in tasks
-          //-Populate the task list with tasks
-          a(href='/tasks/#{task.id}')
+      tbody
+        each task in tasks
           tr
+            td: a(href='/tasks/#{task.id}')
             td=task.completed
             td=task.name
-  div(id='task-detail-pane')
-    h1=task.name
-      ul
-      li=task.dueDate
-      li=task.priority
-      li=task.repeating
-      li=task.note
-      li=task.id
+          div(id='task-detail-pane')
+
+              h1=task.name
+                ul
+                  li=task.dueDate
+                  li=task.priority
+                  li=task.repeating
+                  li=task.note
+                  li=task.id
