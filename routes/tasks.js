@@ -27,11 +27,20 @@ const taskValidators = [
 		.withMessage("Note must not be more than 280 characters long")
 ]
 
-// get task form route
-router.get('/', csrfProtection, asyncHandler(async (req, res, next) => {
-	const lists = await db.List.findAll()
-	res.render('tasks-form', { lists, token: req.csrfToken(), data: {} })
-}))
+//Get new task form
+router.get('/form', csrfProtection, asyncHandler(async(req, res) => {
+	const createTask = await db.Task.build();
+		res.render('tasks-form', {
+			title: 'New Task',
+			createTask,
+			csrfToken: req.csrfToken(),
+		});
+  }));
+
+	// router.get('/', csrfProtection, asyncHandler(async (req, res, next) => {
+	// 	const lists = await db.List.findAll()
+	// 	res.render('tasks-form', { lists, token: req.csrfToken(), data: {} })
+	// }))
 
 // Get all tasks for a specific list
 router.get('/list/:id(\\d+)', asyncHandler(async (req, res, next) => {
@@ -81,7 +90,7 @@ router.post('/', taskValidators, handleValidationErrors, asyncHandler(async (req
 }))
 
 // Update a single task
-router.put('/:id(\\d+)', taskValidators, handleValidationErrors, asyncHandler(async (req, res, next) => {
+router.post('/:id(\\d+)', taskValidators, handleValidationErrors, asyncHandler(async (req, res, next) => {
 	const taskId = parseInt(req.params.id)
 	const task = await Task.findByPk(taskId)
 	if (task) {

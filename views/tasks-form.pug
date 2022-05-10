@@ -1,4 +1,5 @@
 div(id='form-wrapper')
+<<<<<<< HEAD
   form(id='task-form' action='/tasks' method='post')
     input(type='hidden' name='_csrf' value=token)
     label Task Name *
@@ -20,3 +21,22 @@ div(id='form-wrapper')
     label Estimated Time
     input(type='number' name='estimatedTime' value=data.estimatedTime)
     button(type='submit') Submit
+=======
+form(id='task-form' action='/tasks' method='post')
+  label Task Name *
+  input(type='text' name='name' class='list-name' required)
+  label Task Priority
+  input(type='number' name='priority' class='task-priority')
+  label Due Date
+  input(type='date' name='dueDate' class='task-dueDate')
+  label Start Date
+  input(type='date' name='startDate' class='task-startDate')
+  label Repeat?
+  select(name='repeating')
+    option(value=true)= 'True'
+    option(value=false)= 'False'
+  input(type='hidden' name='completed' value=false)
+  label Estimated Time
+  input(type='number' name='estimatedTime')
+  button(type='submit') Submit
+>>>>>>> main
