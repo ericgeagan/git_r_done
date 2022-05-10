@@ -5,7 +5,7 @@ const { check } = require('express-validator')
 
 // Internal Modules
 const db = require('../db/models')
-const { Task } = db
+const { Task, List } = db
 const { asyncHandler, csrfProtection, handleValidationErrors } = require('../utils')
 
 const taskNotFoundError = (taskId) => {
@@ -26,6 +26,12 @@ const taskValidators = [
 		.isLength({ max: 280 })
 		.withMessage("Note must not be more than 280 characters long")
 ]
+
+// get task form route
+router.get('/', csrfProtection, asyncHandler(async (req, res, next) => {
+	const lists = await db.List.findAll()
+	res.render('tasks-form', { lists, token: req.csrfToken(), data: {} })
+}))
 
 // Get all tasks for a specific list
 router.get('/list/:id(\\d+)', asyncHandler(async (req, res, next) => {
@@ -48,6 +54,7 @@ router.get('/:id(\\d+)', asyncHandler(async (req, res, next) => {
 
 // Create a single task
 router.post('/', taskValidators, handleValidationErrors, asyncHandler(async (req, res) => {
+	console.log(req.body)
 	const { 
 		name, 
 		priority, 
@@ -61,12 +68,12 @@ router.post('/', taskValidators, handleValidationErrors, asyncHandler(async (req
 	} = req.body
 	const task = await Task.create({ 
 		name, 
-		priority, 
-		dueDate, 
-		startDate, 
-		repeating, 
-		completed, 
-		estimatedTime, 
+		priority: priority === '' ? null : priority, 
+		dueDate: dueDate === '' ? null : dueDate, 
+		startDate: startDate === '' ? null : startDate, 
+		repeating: repeating === 'on' ? true : false, 
+		completed: completed === 'on' ? true : false, 
+		estimatedTime: estimatedTime === '' ? null : estimatedTime, 
 		note, 
 		listId 
 	})

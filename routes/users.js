@@ -91,7 +91,6 @@ router.post('/register', csrfProtection, registerValidators, asyncHandler(async 
     const hashedPassword = await bcrypt.hash(password, 10);
     user.hashedPassword = hashedPassword;
     await user.save();
-    alert(`User ${username} has been created!`)
     res.redirect('/users/login');
   } else {
     const errors = validatorErrors.array().map((error) => error.msg);
