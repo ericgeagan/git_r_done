@@ -25,11 +25,21 @@ router.get('/', csrfProtection, asyncHandler(async(req, res) => {
     //maybe add titles or other variables later
     res.render('lists', {lists, tasks})
 }))
+//Route to get new list form
+router.get('/form', csrfProtection, asyncHandler(async(req, res) => {
+  const createlist = await db.List.build();
+  res.render('list-form', {
+    title: 'New List',
+    createlist,
+    csrfToken: req.csrfToken(),
+  });
+}));
 //route to get list by list id/ name should show assoc tasks from requested list
 router.get('/:listId', csrfProtection, asyncHandler(async(req, res) => {
    //grab id from the params
    let listId = req.params.listId
 
+lists
     //db queries
     const lists = await db.List.findAll()
     const tasks = await db.Task.findAll({where: {
@@ -55,14 +65,6 @@ router.get('/lists/:id(\\d+)', asyncHandler(async (req, res) => {
       .withMessage('List Name must not be more than 50 characters long'),
   ];
 
-//   router.get('/park/add', csrfProtection, (req, res) => {
-//     const park = db.Park.build();
-//     res.render('park-add', {
-//       title: 'Add Park',
-//       park,
-//       csrfToken: req.csrfToken(),
-//     });
-//   });
 
   router.post('/lists', csrfProtection, listValidators,
     asyncHandler(async (req, res) => {

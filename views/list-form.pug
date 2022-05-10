@@ -1,0 +1,6 @@
+div(id='form-wrapper')
+form(id='list-form' action='/lists' method='post')
+  input(type='hidden' name='_csrf' token= csrfToken)
+  label List Name *
+  input(type='text' name='name' class='list-name' required)
+  button(type='submit') Submit
