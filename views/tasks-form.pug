@@ -1,6 +1,6 @@
 div(id='form-wrapper')
   form(id='task-form' action='/tasks' method='post')
-    input(type='hidden' name='_csrf' value=token)
+    input(type='hidden' name='_csrf' value=csrfToken)
     label Task Name *
     input(type='text' name='name' class='list-name' required value=createTask.name)
     label List 
