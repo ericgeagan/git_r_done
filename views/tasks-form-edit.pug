@@ -1,3 +1,6 @@
+include utils.pug
+
++validationErrorSummary(errors)
 div(id='form-wrapper') Edit #{task.name}
   form(id='task-form' action='/tasks/edit' method='post')
     input(type='hidden' name='_csrf' value=csrfToken)
@@ -18,4 +21,6 @@ div(id='form-wrapper') Edit #{task.name}
     input(type='checkbox' name='completed' value=task.completed)
     label Estimated Time
     input(type='number' name='estimatedTime' value=task.estimatedTime)
+    label Note 
+    textarea(name='note' value=task.note)
     button(type='submit') Submit
