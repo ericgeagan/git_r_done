@@ -39,9 +39,9 @@ router.get('/form', csrfProtection, asyncHandler(async(req, res) => {
 //route to get list by list id/ name should show assoc tasks from requested list
 router.get('/:listId', csrfProtection, asyncHandler(async(req, res) => {
    //grab id from the params
-   let listId = req.params.listId
+   let listId = req.params.listId;
 
-lists
+
     //db queries
     const lists = await db.List.findAll()
     const tasks = await db.Task.findAll({where: {
@@ -60,7 +60,7 @@ router.get('/lists/:id(\\d+)', asyncHandler(async (req, res) => {
   }));
 
   const listValidators = [
-    check('listName')
+    check('name')
       .exists({ checkFalsy: true })
       .withMessage('Please provide a value for List Name')
       .isLength({ max: 50 })
@@ -68,26 +68,30 @@ router.get('/lists/:id(\\d+)', asyncHandler(async (req, res) => {
   ];
 
 
-  router.post('/lists', csrfProtection, listValidators,
+  router.post('/', csrfProtection, listValidators,
     asyncHandler(async (req, res) => {
+      const userId = req.session.auth.userId;
       const {
         name
       } = req.body;
 
       const list = db.List.build({
         name,
-        userId: req.params.listId
+        userId
       });
 
       const validatorErrors = validationResult(req);
-
+      console.log(validatorErrors, '-------------------VALIDATOR ERR-------------')
       if (validatorErrors.isEmpty()) {
         await list.save();
-        res.redirect('/');
+        res.redirect('/lists');
       } else {
         const errors = validatorErrors.array().map((error) => error.msg);
-        res.render('lists', {
-          list,
+        // const lists = await db.List.findAll( {where: { userId }});
+        // const tasks = await db.Task.findAll( {include: {model: List, where: {userId: userId}}});
+        res.render('list-form', {
+          // lists,
+          // tasks,
           errors,
           csrfToken: req.csrfToken(),
         });
