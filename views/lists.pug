@@ -30,16 +30,8 @@ block content
           tr
             th Task
             th Completed?
-            each task in tasks
-              //-Populate the task list with tasks
-              tr
-                td=task.name
-                td=task.completed
+              tr(id='taskTableData')
+
+
+
               div(id='task-detail-pane')
-                h1=task.name
-                  ul
-                    li=task.dueDate
-                    li=task.priority
-                    li=task.repeating
-                    li=task.note
-                    li=task.id
