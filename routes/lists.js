@@ -14,14 +14,16 @@ const app = require('../app');
 const { requireAuth } = require('../auth')
 // router.use(restoreUser)
 //variable we might need
-//const currentUserId = req.session.auth
+
 //route to get all lists
 router.get('/', csrfProtection, asyncHandler(async(req, res) => {
+    const userId = req.session.auth.userId
+    console.log(userId,'--------------USER ID ----------------')
     // grab all lists from the db
     //const sessi = await db.Session.findAll()
     //  console.log(req.session.auth, "SESSION********************")
-    const lists = await db.List.findAll()
-    const tasks = await db.Task.findAll()
+    const lists = await db.List.findAll( {where: { userId }})
+    const tasks = await db.Task.findAll( {include: {model: List, where: {userId: userId}}})
     //maybe add titles or other variables later
     res.render('lists', {lists, tasks})
 }))
