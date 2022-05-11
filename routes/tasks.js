@@ -28,9 +28,8 @@ const taskValidators = [
 ]
 
 //Get new task form
-router.get('/', csrfProtection, asyncHandler(async(req, res) => {
-	const userId = req.session.auth.userId
-	const lists = await db.List.findAll({ where: { userId }})
+router.get('/form', csrfProtection, asyncHandler(async(req, res) => {
+	const lists = await db.List.findAll()
 	const createTask = await db.Task.build();
 		res.render('tasks-form', {
 			title: 'New Task',
@@ -84,7 +83,8 @@ router.post('/', taskValidators, handleValidationErrors, asyncHandler(async (req
 		note, 
 		listId 
 	})
-	res.json(task)
+	res.redirect('/lists')
+	// res.json(task)
 }))
 
 // Get update task form
