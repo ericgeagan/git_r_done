@@ -1,6 +1,7 @@
-# Express Project Skeleton
+# Git R Done
 
-Use this project skeleton as a starting point for structuring your app. Things to note
-* Sequelize configuration has not yet been added -- you will need to set that up yourself
-* You may find yourself wanting to use javascript -- js files can be added in `public/javascripts` and should be appended to the Pug templates as needed
-* CSS files can go in `public/stylesheets` and also will need to be added to Pug templates
+## Git R Done at a Glance
+
+Git R Done is a full stack application that allows users to keep track of all their daily and future tasks, helping them organize their workflow and increase productivity. Logged in users can create a list of tasks, give each task a priority, a due date, and add notes to them. Currently, only the default user has seeded data with preset lists and tasks.
+
+## Application Architecture
