@@ -1,0 +1,9 @@
+include utils.pug
+
++validationErrorSummary(errors)
+div(id='form-wrapper') Edit List #{listId}
+form(id='edit-list-form' action=`/lists/${listId}/edit` method='post')
+  input(type='hidden' name='_csrf' value=csrfToken)
+  label List Name *
+  input(type='text' name='name' class='list-name' value=listName required)
+  button(type='submit') Edit

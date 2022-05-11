@@ -35,14 +35,15 @@ router.get('/form', csrfProtection, asyncHandler(async(req, res) => {
     csrfToken: req.csrfToken(),
   });
 }));
-//route to get list by list id/ name should show assoc tasks from requested list
+//GET SPECIFIC LIST ROUTE
 router.get('/:listId', csrfProtection, asyncHandler(async(req, res) => {
    //grab id from the params
    let listId = req.params.listId;
+   const userId = req.session.auth.userId;
 
 
     //db queries
-    const lists = await db.List.findAll()
+    const lists = await db.List.findAll({where: {userId, id: listId}})
     const tasks = await db.Task.findAll({where: {
         listId
     }})
@@ -50,23 +51,17 @@ router.get('/:listId', csrfProtection, asyncHandler(async(req, res) => {
     //maybe add titles or other variables later
     res.render('lists', {lists, list, tasks})
 }))
-//route to create new list
 
-router.get('/lists/:id(\\d+)', asyncHandler(async (req, res) => {
-    const listId = parseInt(req.params.id, 10);
-    const list = await db.List.findByPk(listId, { include: ['tasks'] });
-    res.render('lists', { list });
-  }));
-
+//LIST VALIDATOR
   const listValidators = [
     check('name')
       .exists({ checkFalsy: true })
       .withMessage('Please provide a value for List Name')
-      .isLength({ max: 50 })
-      .withMessage('List Name must not be more than 50 characters long'),
+      .isLength({ max: 25 })
+      .withMessage('List Name must not be more than 25 characters long'),
   ];
 
-
+//LIST POST ROUTE
   router.post('/', csrfProtection, listValidators,
     asyncHandler(async (req, res) => {
       const userId = req.session.auth.userId;
@@ -96,43 +91,42 @@ router.get('/lists/:id(\\d+)', asyncHandler(async (req, res) => {
       }
     }));
 
-//   router.get('/park/edit/:id(\\d+)', csrfProtection,
-//     asyncHandler(async (req, res) => {
-//       const parkId = parseInt(req.params.id, 10);
-//       const park = await db.Park.findByPk(parkId);
-//       res.render('park-edit', {
-//         title: 'Edit Park',
-//         park,
-//         csrfToken: req.csrfToken(),
-//       });
-//     }));
 
-  router.post('/lists/edit/:id(\\d+)', csrfProtection, listValidators,
+  router.get('/:id(\\d+)/edit', csrfProtection, asyncHandler( async ( req,res )=>{
+    const listId = req.params.id;
+    const list = await db.List.findByPk(listId);
+    
+
+    res.render('edit-list-form', {listName: list.name, listId, csrfToken: req.csrfToken()})
+  }))
+  router.post('/:id(\\d+)/edit', csrfProtection, listValidators,
     asyncHandler(async (req, res) => {
       const listId = parseInt(req.params.id, 10);
       const listToUpdate = await db.List.findByPk(listId);
-
+      const userId = req.session.auth.userId;
+      
       const {
        name
       } = req.body;
 
       const list = {
         name,
-        userId: listId
+        userId
       };
 
       const validatorErrors = validationResult(req);
 
       if (validatorErrors.isEmpty()) {
-        await listToUpdate.update(park);
-        res.redirect(`/lists/${listId}`); // THIS MAY NEED ATTENTION
+        await listToUpdate.update(list);
+        res.redirect(`/lists/${listId}`); 
       } else {
         const errors = validatorErrors.array().map((error) => error.msg);
-        res.render('lists', {
-
-          list: { ...list, id: listId },
+        res.render('edit-list-form', {
+          listName: listToUpdate.name,
+          listId,
           errors,
           csrfToken: req.csrfToken(),
+
         });
       }
     }));
