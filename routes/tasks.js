@@ -28,7 +28,7 @@ const taskValidators = [
 ]
 
 //Get new task form
-router.get('/', csrfProtection, asyncHandler(async(req, res) => {
+router.get('/form', csrfProtection, asyncHandler(async(req, res) => {
 	const lists = await db.List.findAll()
 	const createTask = await db.Task.build();
 		res.render('tasks-form', {
@@ -83,7 +83,8 @@ router.post('/', taskValidators, handleValidationErrors, asyncHandler(async (req
 		note, 
 		listId 
 	})
-	res.json(task)
+	res.redirect('/lists')
+	// res.json(task)
 }))
 
 // Update a single task
