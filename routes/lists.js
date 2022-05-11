@@ -95,7 +95,7 @@ router.get('/:listId', csrfProtection, asyncHandler(async(req, res) => {
   router.get('/:id(\\d+)/edit', csrfProtection, asyncHandler( async ( req,res )=>{
     const listId = req.params.id;
     const list = await db.List.findByPk(listId);
-    
+
 
     res.render('edit-list-form', {listName: list.name, listId, csrfToken: req.csrfToken()})
   }))
@@ -104,7 +104,7 @@ router.get('/:listId', csrfProtection, asyncHandler(async(req, res) => {
       const listId = parseInt(req.params.id, 10);
       const listToUpdate = await db.List.findByPk(listId);
       const userId = req.session.auth.userId;
-      
+
       const {
        name
       } = req.body;
@@ -118,7 +118,7 @@ router.get('/:listId', csrfProtection, asyncHandler(async(req, res) => {
 
       if (validatorErrors.isEmpty()) {
         await listToUpdate.update(list);
-        res.redirect(`/lists/${listId}`); 
+        res.redirect(`/lists/${listId}`);
       } else {
         const errors = validatorErrors.array().map((error) => error.msg);
         res.render('edit-list-form', {
@@ -142,7 +142,7 @@ router.get('/:listId', csrfProtection, asyncHandler(async(req, res) => {
 //       });
 //     }));
 
-  router.post('/lists/delete/:id(\\d+)', csrfProtection,
+  router.get('/:id(\\d+)/delete', csrfProtection,
 // router.post('/lists/:id', csrfProtection,
   asyncHandler(async (req, res) => {
         console.log("DELETE ROUTE HIT")
@@ -150,7 +150,7 @@ router.get('/:listId', csrfProtection, asyncHandler(async(req, res) => {
       const list = await db.List.findByPk(listId);
       await list.destroy();
     //   res.redirect('/lists');
-    res.send("DELETE")
+    res.redirect('/lists')
     }));
 
 
