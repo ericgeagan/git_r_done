@@ -142,7 +142,7 @@ router.get('/:listId', csrfProtection, asyncHandler(async(req, res) => {
 //       });
 //     }));
 
-  router.post('/lists/delete/:id(\\d+)', csrfProtection,
+  router.get('/:id(\\d+)/delete', csrfProtection,
 // router.post('/lists/:id', csrfProtection,
   asyncHandler(async (req, res) => {
         console.log("DELETE ROUTE HIT")
@@ -150,7 +150,7 @@ router.get('/:listId', csrfProtection, asyncHandler(async(req, res) => {
       const list = await db.List.findByPk(listId);
       await list.destroy();
     //   res.redirect('/lists');
-    res.send("DELETE")
+    res.redirect('/lists')
     }));
 
 

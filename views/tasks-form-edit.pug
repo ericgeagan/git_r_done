@@ -1,9 +1,10 @@
 include utils.pug
 
 +validationErrorSummary(errors)
-div(id='form-wrapper')
-  form(id='task-form' action='/tasks' method='post')
+div(id='form-wrapper') Edit #{task.name}
+  form(id='task-form' action='/tasks/edit' method='post')
     input(type='hidden' name='_csrf' value=csrfToken)
+    input(type='hidden' name='id' value=task.id)
     label Task Name *
     input(type='text' name='name' class='list-name' required value=task.name)
     label List 
@@ -16,8 +17,8 @@ div(id='form-wrapper')
     input(type='date' name='dueDate' class='task-dueDate' value=task.dueDate)
     label Start Date
     input(type='date' name='startDate' class='task-startDate' value=task.startDate)
-    //- label Completed?
-    //- input(type='checkbox' name='completed' value=task.completed)
+    label Completed?
+    input(type='checkbox' name='completed' value=task.completed)
     label Estimated Time
     input(type='number' name='estimatedTime' value=task.estimatedTime)
     label Note 

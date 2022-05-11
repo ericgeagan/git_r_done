@@ -21,10 +21,6 @@ module.exports = {
       startDate: {
         type: Sequelize.DATE
       },
-      repeating: {
-        allowNull: false,
-        type: Sequelize.BOOLEAN
-      },
       completed: {
         allowNull: false,
         type: Sequelize.BOOLEAN

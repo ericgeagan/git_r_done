@@ -12,7 +12,7 @@ module.exports = (sequelize, DataTypes) => {
   }, {});
   User.associate = function(models) {
     // associations can be defined here
-    User.hasMany(models.List, { foreignKey: "userId" })
+    User.hasMany(models.List, { foreignKey: "userId", onDelete: "CASCADE" })
   };
   User.prototype.validatePassword = function (password) {
     return bcrypt.compareSync(password, this.hashedPassword.toString())
