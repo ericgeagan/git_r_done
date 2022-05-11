@@ -5,7 +5,7 @@ const { check } = require('express-validator')
 
 // Internal Modules
 const db = require('../db/models')
-const { Task } = db
+const { Task, List } = db
 const { asyncHandler, csrfProtection, handleValidationErrors } = require('../utils')
 
 const taskNotFoundError = (taskId) => {
@@ -28,13 +28,15 @@ const taskValidators = [
 ]
 
 //Get new task form
-router.get('/form', csrfProtection, asyncHandler(async(req, res) => {
+router.get('/', csrfProtection, asyncHandler(async(req, res) => {
+	const lists = await db.List.findAll()
 	const createTask = await db.Task.build();
-	res.render('tasks-form', {
-	  title: 'New Task',
-	  createTask,
-	  csrfToken: req.csrfToken(),
-	});
+		res.render('tasks-form', {
+			title: 'New Task',
+			lists,
+			createTask,
+			csrfToken: req.csrfToken(),
+		});
   }));
 
 // Get all tasks for a specific list
@@ -58,33 +60,34 @@ router.get('/:id(\\d+)', asyncHandler(async (req, res, next) => {
 
 // Create a single task
 router.post('/', taskValidators, handleValidationErrors, asyncHandler(async (req, res) => {
-	const {
-		name,
-		priority,
-		dueDate,
-		startDate,
-		repeating,
-		completed,
-		estimatedTime,
-		note,
-		listId
+	console.log(req.body)
+	const { 
+		name, 
+		priority, 
+		dueDate, 
+		startDate, 
+		repeating, 
+		completed, 
+		estimatedTime, 
+		note, 
+		listId 
 	} = req.body
-	const task = await Task.create({
-		name,
-		priority,
-		dueDate,
-		startDate,
-		repeating,
-		completed,
-		estimatedTime,
-		note,
-		listId
+	const task = await Task.create({ 
+		name, 
+		priority: priority === '' ? null : priority, 
+		dueDate: dueDate === '' ? null : dueDate, 
+		startDate: startDate === '' ? null : startDate, 
+		repeating: repeating === 'on' ? true : false, 
+		completed: completed === 'on' ? true : false, 
+		estimatedTime: estimatedTime === '' ? null : estimatedTime, 
+		note, 
+		listId 
 	})
 	res.json(task)
 }))
 
 // Update a single task
-router.put('/:id(\\d+)', taskValidators, handleValidationErrors, asyncHandler(async (req, res, next) => {
+router.post('/:id(\\d+)', taskValidators, handleValidationErrors, asyncHandler(async (req, res, next) => {
 	const taskId = parseInt(req.params.id)
 	const task = await Task.findByPk(taskId)
 	if (task) {
