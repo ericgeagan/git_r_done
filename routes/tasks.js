@@ -29,7 +29,8 @@ const taskValidators = [
 
 //Get new task form
 router.get('/', csrfProtection, asyncHandler(async(req, res) => {
-	const lists = await db.List.findAll()
+	const userId = req.session.auth.userId
+	const lists = await db.List.findAll({ where: { userId }})
 	const createTask = await db.Task.build();
 		res.render('tasks-form', {
 			title: 'New Task',
@@ -60,7 +61,7 @@ router.get('/:id(\\d+)', asyncHandler(async (req, res, next) => {
 
 // Create a single task
 router.post('/', taskValidators, handleValidationErrors, asyncHandler(async (req, res) => {
-	console.log(req.body)
+	// console.log(req.body)
 	const { 
 		name, 
 		priority, 
@@ -86,27 +87,73 @@ router.post('/', taskValidators, handleValidationErrors, asyncHandler(async (req
 	res.json(task)
 }))
 
-// Update a single task
-router.post('/:id(\\d+)', taskValidators, handleValidationErrors, asyncHandler(async (req, res, next) => {
+// Get update task form
+router.get('/:id(\\d+)/edit', csrfProtection, asyncHandler(async (req, res, next) => {
 	const taskId = parseInt(req.params.id)
+	const userId = req.session.auth.userId
+	const lists = await db.List.findAll({ where: { userId }})
 	const task = await Task.findByPk(taskId)
+	res.render('tasks-form-edit', {
+		title: 'New Task',
+		taskId,
+		lists,
+		task,
+		csrfToken: req.csrfToken(),
+	});
+}))
+
+// Update a single task
+router.post('/edit', taskValidators, handleValidationErrors, asyncHandler(async (req, res, next) => {
+	const { 
+		id,
+		name, 
+		priority, 
+		dueDate, 
+		startDate, 
+		repeating, 
+		completed, 
+		estimatedTime, 
+		note, 
+		listId
+	} = req.body
+	const task = await Task.findByPk(id)
+	await task.update({ 
+		name, 
+		priority: priority === '' ? null : priority, 
+		dueDate: dueDate === '' ? null : dueDate, 
+		startDate: startDate === '' ? null : startDate, 
+		repeating: repeating === 'on' ? true : false, 
+		completed: completed === 'on' ? true : false, 
+		estimatedTime: estimatedTime === '' ? null : estimatedTime, 
+		note, 
+		listId 
+	})
 	if (task) {
-		res.json({ task })
+		res.redirect(`/lists`);
+		// res.json({ task })
 	} else {
 		next(taskNotFoundError(taskId))
 	}
 }))
 
 // Delete a single task
-router.delete('/:id(\\d+)', asyncHandler(async (req, res, next) => {
+router.get('/:id(\\d+)/delete', asyncHandler(async (req, res, next) => {
 	const taskId = parseInt(req.params.id)
 	const task = await Task.findByPk(taskId)
-	if (task) {
-		await task.destroy()
-		res.status(204).end()
-	} else {
-		next(taskNotFoundError(taskId))
-	}
+	task.destroy();
+	res.redirect('/lists')
 }))
+
+// Delete a single task
+// router.delete('/:id(\\d+)/delete', asyncHandler(async (req, res, next) => {
+// 	const taskId = parseInt(req.params.id)
+// 	const task = await Task.findByPk(taskId)
+// 	if (task) {
+// 		await task.destroy()
+// 		res.status(204).end()
+// 	} else {
+// 		next(taskNotFoundError(taskId))
+// 	}
+// }))
 
 module.exports = router
