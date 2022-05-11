@@ -1,7 +1,7 @@
 // External Modules
 const express = require('express')
 const router = express.Router()
-const { check } = require('express-validator')
+const { check, validationResult } = require('express-validator')
 
 // Internal Modules
 const db = require('../db/models')
@@ -30,11 +30,11 @@ const taskValidators = [
 //Get new task form
 router.get('/form', csrfProtection, asyncHandler(async(req, res) => {
 	const lists = await db.List.findAll()
-	const createTask = await db.Task.build();
+	const task = await db.Task.build();
 		res.render('tasks-form', {
 			title: 'New Task',
 			lists,
-			createTask,
+			task,
 			csrfToken: req.csrfToken(),
 		});
   }));
@@ -59,32 +59,58 @@ router.get('/:id(\\d+)', asyncHandler(async (req, res, next) => {
 }))
 
 // Create a single task
-router.post('/', taskValidators, handleValidationErrors, asyncHandler(async (req, res) => {
+router.post('/', csrfProtection, taskValidators, asyncHandler(async (req, res) => {
 	// console.log(req.body)
 	const { 
 		name, 
 		priority, 
 		dueDate, 
 		startDate, 
-		repeating, 
 		completed, 
 		estimatedTime, 
 		note, 
 		listId 
 	} = req.body
-	const task = await Task.create({ 
-		name, 
-		priority: priority === '' ? null : priority, 
-		dueDate: dueDate === '' ? null : dueDate, 
-		startDate: startDate === '' ? null : startDate, 
-		repeating: repeating === 'on' ? true : false, 
-		completed: completed === 'on' ? true : false, 
-		estimatedTime: estimatedTime === '' ? null : estimatedTime, 
-		note, 
-		listId 
-	})
-	res.redirect('/lists')
-	// res.json(task)
+
+	const validatorErrors = validationResult(req)
+	console.log('aaaaaaaaaaa', typeof priority, typeof estimatedTime)
+
+	if (validatorErrors.isEmpty()) {
+		const task = await Task.create({ 
+			name, 
+			priority: priority === '' ? null : priority, 
+			dueDate: dueDate === '' ? null : dueDate, 
+			startDate: startDate === '' ? null : startDate, 
+			completed: completed === 'on' ? true : false, 
+			estimatedTime: estimatedTime === '' ? null : estimatedTime, 
+			note, 
+			listId 
+		})
+		res.redirect('/lists')
+		// res.json(task)
+	} else {
+		const userId = req.session.auth.userId
+		const lists = await db.List.findAll({ where: { userId }})
+
+		const task = {
+			name, 
+			priority, 
+			dueDate, 
+			startDate, 
+			completed, 
+			estimatedTime, 
+			note, 
+			listId
+		}
+
+		const errors = validatorErrors.array().map((error) => error.msg)
+		res.render('tasks-form', {
+			errors,
+			csrfToken: req.csrfToken(),
+			task,
+			lists
+		})
+	}
 }))
 
 // Get update task form
@@ -103,36 +129,59 @@ router.get('/:id(\\d+)/edit', csrfProtection, asyncHandler(async (req, res, next
 }))
 
 // Update a single task
-router.post('/edit', taskValidators, handleValidationErrors, asyncHandler(async (req, res, next) => {
+router.post('/edit', csrfProtection, taskValidators, asyncHandler(async (req, res, next) => {
 	const { 
 		id,
 		name, 
 		priority, 
 		dueDate, 
 		startDate, 
-		repeating, 
 		completed, 
 		estimatedTime, 
 		note, 
 		listId
 	} = req.body
-	const task = await Task.findByPk(id)
-	await task.update({ 
-		name, 
-		priority: priority === '' ? null : priority, 
-		dueDate: dueDate === '' ? null : dueDate, 
-		startDate: startDate === '' ? null : startDate, 
-		repeating: repeating === 'on' ? true : false, 
-		completed: completed === 'on' ? true : false, 
-		estimatedTime: estimatedTime === '' ? null : estimatedTime, 
-		note, 
-		listId 
-	})
-	if (task) {
+
+	console.log('aaaaaaaaaaa', typeof priority, typeof estimatedTime, typeof listId, listId)
+	let task = await Task.findByPk(id)
+	const validatorErrors = validationResult(req)
+	
+	if (validatorErrors.isEmpty()) {
+		await task.update({ 
+			name, 
+			priority: priority === '' ? null : priority, 
+			dueDate: dueDate === '' ? null : dueDate, 
+			startDate: startDate === '' ? null : startDate, 
+			completed: completed === 'on' ? true : false, 
+			estimatedTime: estimatedTime === '' ? null : estimatedTime, 
+			note, 
+			listId: parseInt(listId)
+		})
 		res.redirect(`/lists`);
 		// res.json({ task })
 	} else {
-		next(taskNotFoundError(taskId))
+		const userId = req.session.auth.userId
+		const lists = await db.List.findAll({ where: { userId }})
+
+		task = {
+			id,
+			name, 
+			priority, 
+			dueDate, 
+			startDate, 
+			completed, 
+			estimatedTime, 
+			note, 
+			listId
+		}
+
+		const errors = validatorErrors.array().map((error) => error.msg)
+		res.render('tasks-form-edit', {
+			errors,
+			csrfToken: req.csrfToken(),
+			task,
+			lists
+		})
 	}
 }))
 
