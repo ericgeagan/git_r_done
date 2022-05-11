@@ -29,16 +29,20 @@ div(id='content')
           th Completed?
           th Task
           each task in tasks
-            //-Populate the task list with tasks
-            a(href='/tasks/#{task.id}')
-            tr
-              td=task.completed
-              td=task.name
-            div(id='task-detail-pane')
-              h1=task.name
-                ul
-                  li=task.dueDate
-                  li=task.priority
-                  li=task.repeating
-                  li=task.note
-                  li=task.id
+            div(id='task-block')
+              //-Populate the task list with tasks
+              div(id='edit-task')
+                a(href=`/tasks/${task.id}/edit`) Edit
+              div(id='delete-task')
+                a(href=`/tasks/${task.id}/delete`) Delete
+              tr
+                td=task.completed
+                td=task.name
+              div(id='task-detail-pane')
+                h1=task.name
+                  ul
+                    li=task.dueDate
+                    li=task.priority
+                    li=task.repeating
+                    li=task.note
+                    li=task.id
