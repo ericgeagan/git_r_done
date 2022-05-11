@@ -28,19 +28,16 @@ const taskValidators = [
 ]
 
 //Get new task form
-router.get('/form', csrfProtection, asyncHandler(async(req, res) => {
+router.get('/', csrfProtection, asyncHandler(async(req, res) => {
+	const lists = await db.List.findAll()
 	const createTask = await db.Task.build();
 		res.render('tasks-form', {
 			title: 'New Task',
+			lists,
 			createTask,
 			csrfToken: req.csrfToken(),
 		});
   }));
-
-	// router.get('/', csrfProtection, asyncHandler(async (req, res, next) => {
-	// 	const lists = await db.List.findAll()
-	// 	res.render('tasks-form', { lists, token: req.csrfToken(), data: {} })
-	// }))
 
 // Get all tasks for a specific list
 router.get('/list/:id(\\d+)', asyncHandler(async (req, res, next) => {
