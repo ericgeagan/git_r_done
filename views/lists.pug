@@ -1,48 +1,40 @@
-//- extends layout.pug
-//- This is a rough skeleton of the main lists page -- expect this to be changed heavily over time.
-//- All variable names etc are placeholders and not final.
+extends layout.pug
+append head
+  script(src='/javascripts/listScript.js' type='module')
 
-//- Main content Wrapper
-div(id='content')
-  //- Side nav bar
-  div(id='side-nav-bar')
-    //- Wrapper for img logo
-    div(id='logo-container')
-      a(href='/lists/form') Create new list form
-      //- Begin list of lists
-      div(id='list-column')
-        //- Review before merging!
-        //- Create a link to each list present in our Db
-        ul(class='lists')
-          each list in lists
-            //-   //- Click listener to display tasks in list.
-            li= list.name
-            //- End List population
+block content
+  //- Main content Wrapper
+  div(id='content')
+    //- Side nav bar
+    div(id='side-nav-bar')
+      //- Wrapper for img logo
+      div(id='logo-container')
+        a(href='/lists/form') Create new list form
+        //- Begin list of lists
+        div(id='list-column')
+          //- Review before merging!
+          //- Create a link to each list present in our Db
+          ul(class='lists')
+            each list in lists
+              //-   //- Click listener to display tasks in list.
+              li(class=`listItem_${list.id}`)= list.name
+              a(href='lists/' + list.id + '/edit') Edit
+              //- End List population
 
-  //- Main task list - will be populated after selecting a list.
-  div(id='task-content-wrapper')
-    //- Task List Wrapper
-    div(id='table-wrapper')
-      a(href='/tasks/form') Create new task form
-      table
-        tr
-          th Completed?
-          th Task
-          each task in tasks
-            div(id='task-block')
-              //-Populate the task list with tasks
-              div(id='edit-task')
-                a(href=`/tasks/${task.id}/edit`) Edit
-              div(id='delete-task')
-                a(href=`/tasks/${task.id}/delete`) Delete
-              tr
-                td=task.completed
-                td=task.name
+
+    //- Main task list - will be populated after selecting a list.
+    div(id='task-content-wrapper')
+      //- Task List Wrapper
+      div(id='table-wrapper')
+        a(href='/tasks/form') Create new task form
+        table
+          tr
+            th Task
+            th Completed?
+              tr(id='taskTableData')
+
+
+
               div(id='task-detail-pane')
-                h1=task.name
-                  ul
-                    li=task.dueDate
-                    li=task.priority
-                    li=task.repeating
-                    li=task.note
-                    li=task.id
+
+ 
