@@ -5,7 +5,6 @@ module.exports = (sequelize, DataTypes) => {
     priority: DataTypes.INTEGER,
     dueDate: DataTypes.DATE,
     startDate: DataTypes.DATE,
-    repeating: DataTypes.BOOLEAN,
     completed: DataTypes.BOOLEAN,
     estimatedTime: DataTypes.INTEGER,
     note: DataTypes.STRING,
