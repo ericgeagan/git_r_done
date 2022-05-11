@@ -18,7 +18,6 @@ const { requireAuth } = require('../auth')
 //route to get all lists
 router.get('/', csrfProtection, asyncHandler(async(req, res) => {
     const userId = req.session.auth.userId
-    console.log(userId,'--------------USER ID ----------------')
     // grab all lists from the db
     //const sessi = await db.Session.findAll()
     //  console.log(req.session.auth, "SESSION********************")
@@ -81,7 +80,6 @@ router.get('/lists/:id(\\d+)', asyncHandler(async (req, res) => {
       });
 
       const validatorErrors = validationResult(req);
-      console.log(validatorErrors, '-------------------VALIDATOR ERR-------------')
       if (validatorErrors.isEmpty()) {
         await list.save();
         res.redirect('/lists');
