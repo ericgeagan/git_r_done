@@ -91,7 +91,7 @@ footer {
 }
 
 .login-curator-text {
-	font-family: MuseoSansRounded, "Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 	font-weight: 500;
 	font-size: 14px;
 	color: #fff;
@@ -118,7 +118,7 @@ footer {
 
 .btn-primary {
 	border-radius: 4px;
-	font-family: MuseoSansRounded, "Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 	font-weight: 700;
 }
 
@@ -169,7 +169,7 @@ footer {
 	margin: 27px 20px 0 2px;
 	line-height: 120%;
 	max-width: 420px;
-	font-family: MuseoSansRounded, "Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 .image-container {
