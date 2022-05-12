@@ -39,7 +39,7 @@ router.get('/form', csrfProtection, asyncHandler(async(req, res) => {
 		});
   }));
 
-// Get all tasks for a specific list
+// Get all tasks for a specific list -- passed to listScript.js
 router.get('/list/:id(\\d+)', asyncHandler(async (req, res, next) => {
 	const listId = parseInt(req.params.id)
 	const tasks = await Task.findAll({
@@ -47,6 +47,20 @@ router.get('/list/:id(\\d+)', asyncHandler(async (req, res, next) => {
 			listId
 		},
 		order: [["createdAt", "DESC"]]
+	})
+	res.json({ tasks })
+}))
+
+// Get all tasks based on the currently logged in user-- passed to listScript.js
+router.get('/user', asyncHandler(async (req, res, next) => {
+	const userId = req.session.auth.userId
+	const tasks = await Task.findAll({
+		include: {
+			model: List,
+			where: {userId},
+			order: [["createdAt", "DESC"]]
+		}
+		
 	})
 	res.json({ tasks })
 }))
