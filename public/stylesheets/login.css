@@ -1,0 +1,39 @@
+.login-page {
+	display: flex;
+	flex-direction: row;
+}
+
+.leftHalf {
+	justify-content: center;
+	height: 100%;
+	width: 50%;
+}
+
+.rightHalf {
+	float: right;
+	justify-content: center;
+	height: 100%;
+	width: 420px;
+	margin-left: 33px;
+}
+
+.login-btn {
+	margin-top: 19px;
+	height: 48px;
+	font-size: 20px;
+}
+
+.btn-block {
+	display: block;
+	width: 100%;
+}
+
+.btn-primary {
+	border-radius: 4px;
+}
+
+.btn {
+	color: rgb(232, 230, 227);
+	background-color: rgb(0, 126, 204);
+	border-color: transparent;
+}
