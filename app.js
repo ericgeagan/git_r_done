@@ -35,6 +35,8 @@ app.use(
     store,
     saveUninitialized: false,
     resave: false,
+    expires: new Date(Date.now()+ (10 * 60 * 1000)), //10 minute expiration
+
   })
   );
 

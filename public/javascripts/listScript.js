@@ -8,7 +8,15 @@ window.addEventListener("load", async () => {
     e.stopPropagation();
     const clickedListId = e.target.getAttribute("class").slice(9);
     const clickedList = e.target;
-    // console.log(clickedListId);
+
+    //Removes all child nodes before populating table
+    function removeChildren () {
+      const delTable = document.querySelector('#taskTableData');
+      while (delTable.children.length > 0) {
+        delTable.removeChild(delTable.firstElementChild);
+      }
+    }
+    removeChildren();
 
     //Fetches all tasks from the list given an id
     async function getAllTasksForList(id) {
@@ -23,8 +31,6 @@ window.addEventListener("load", async () => {
       //Creates table elements and assigns task data
       .then(data => {
           const taskdata = data.tasks;
-        //   console.log(data);
-        //   console.log(data.tasks);
 
           taskdata.forEach(task => {
 
@@ -34,19 +40,13 @@ window.addEventListener("load", async () => {
           tasktdCompleted.innerText = task.completed;
           let tasksTable = document.querySelector("#taskTableData");
           let newRow = document.createElement('tr');
+          newRow.id = `task-${task.id}`
           tasksTable.appendChild(newRow);
           newRow.appendChild(tasktdName);
           newRow.appendChild(tasktdCompleted);
-
-
       })})
     }
     getAllTasksForList(clickedListId)
-
-    //Removes event listeners from tasks that have been clicked
-    lists.removeEventListener('click', callBack)
-    // console.log(data.tasks);
-
 };
 
 //

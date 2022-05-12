@@ -2,22 +2,22 @@ doctype html
 html
   head
       block head
-        title="Express Starter App"
-        link(rel='stylesheet' href='/stylesheets/reset.css')
+        title="Git_R_Done"
+        link(rel='stylesheet' href='/stylesheets/matts.css')
   body
     div(class="navbar_container")
-      a(class="navbar_left_logo")
-      ul(id="navbar_right")
-        li(class="nav_link" id="login")
-          a(href="/users/login") Log in
-        li(class="nav_link" id='signUp') 
-          a(href="/users/register") Sign Up
-        li(class="nav_link" id="Menu")
-          a(href='/') Menu
+      a(href="/lists")
+        img(class="navbar_left_logo" src="icons/img.png" href="/lists")
+      div(id="navbar_right")
+        a(href="/users/login" class="nav_link" id="login") Log in
+
+        a(href="/users/logout" class="nav_link" id='logOut') Log Out
+        a(href="/users/demologin" class="nav_link" id='demo') Demo User
+        select(type="dropdown" class="nav_link" id="Menu") Menu
+    block content
     div(class="nav_footer_container")
       div
         ul(class="nav_stack")
           li(class="footer_headings")
           li Sub Link Here
           //- Repeat lines 14-17 for rest of groupings
-    block content
