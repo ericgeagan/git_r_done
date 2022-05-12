@@ -1,0 +1,52 @@
+ body {
+     font-family: Arial, Helvetica, sans-serif;
+ }
+
+ .navbar_container {
+    display: flex;
+    position: relative;
+    align-items: center;
+   justify-content: space-between;
+    width: 100%;
+    padding: 5px 5px 5px;
+    border: 1px solid black;
+    height: 50px;
+}
+.navbar_right {
+    border: 1px solid red;
+    position: relative;
+    top: 35px;
+}
+.navbar_left_logo {
+    padding: 30px 0;
+}
+#login {
+    text-decoration: none;
+    float: right;
+    padding-top: 2px;
+
+}
+#signUp {
+    border: 3px solid  grey;
+    border-radius:5px;
+    float: right;
+    text-decoration: none;
+}
+#Menu {
+    float: right;
+}
+
+.nav_footer_container {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    border-top: 2px solid black;
+    position: relative;
+    border-bottom: 2px solid black;
+    width: 100%;
+    padding-top: 7px;
+    padding-bottom: 7px;
+    height: 2em;
+    text-decoration: none;
+}
+
