@@ -1,5 +1,4 @@
 //- extends layout.pug
-
 include utils.pug
 
 block content
@@ -16,11 +15,11 @@ block content
                     footer= `-  ${quote.author}`
                 div(class='login-curator')
                     div(class='login-curator-avatar' style=`background-image: url('/icons/${curatorIcon}.png')`)
-                    div(class='login-curator-text') Quotes created by Group 7, renowed productivity experts
+                    div(class='login-curator-text') Quotes curated by Eric Geagan, Matthew Hautala, and Allen Faughn, renowed productivity experts
         div(class='rightHalf')
             div(class='buttons')
                 a(href="/users/demologin" class="signup btn-primary" id='demo') Demo User
-                a(class='signup btn-primary' href='/users/register') Sign up for free
+                a(href='/users/register' class='signup btn-primary') Sign up for free
             div(class='login-form') 
                 h3 Been here before? Welcome back!
                 +validationErrorSummary(errors)
@@ -30,6 +29,6 @@ block content
                         +field('', 'emailAddress', emailAddress, 'text', 'Email')
                     div(class='input-lg')
                         +field('', 'password', null, 'password', 'Password')
-                    div(class='py-4')
+                    //- div(class='py-4')
                     button(type='submit' class='btn btn-primary btn-block login-btn') Log in
                     //- a(href='/' class='btn btn-warning ml-2') Cancel
