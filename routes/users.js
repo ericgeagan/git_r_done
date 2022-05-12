@@ -69,7 +69,6 @@ router.get('/register', csrfProtection, (req, res) => {
   res.render('user-register', {
     // title: 'Register',
     user,
-    errors: {},
     csrfToken: req.csrfToken()
   })
 })
