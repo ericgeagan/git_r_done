@@ -54,7 +54,7 @@ router.get('/list/:id(\\d+)', asyncHandler(async (req, res, next) => {
 	res.json({ tasks })
 }))
 
-// Get all tasks based on the currently logged in -- passed to listScript.js
+// Get all tasks based on the currently logged in user-- passed to listScript.js
 router.get('/user', asyncHandler(async (req, res, next) => {
 	const userId = req.session.auth.userId
 	const tasks = await Task.findAll({
