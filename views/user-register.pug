@@ -1,16 +1,38 @@
-extends layout.pug
+//- extends layout.pug
 include utils.pug
-block content
-    +validationErrorSummary(errors)
-    form(action='/users/register' method='post')
-        input(type='hidden' name='_csrf' value=csrfToken)
-        +field("Username", "username")
-        +field("Email Address", "emailAddress")
-        +field("Password", "password", 'password')
-        +field("Confirm Password", "confirmPassword", "", 'password' )
-        div(class='py-4')
-            button(type='submit' class='btn btn-primary') Register
-            a(href='/' class='btn btn-warning ml-2') Cancel
-    div
-        p: a(href='/users/login') Already have an account?
+
+block content    
+    link(rel='stylesheet', type='text/css', href='/stylesheets/login.css')
+    div(class='login-page')
+        div(class='leftHalf')
+            div(class='left-items')
+                a(href='/')
+                    img(src='/icons/gitrdoneMenu.png')
+                div(class='image-container')
+                    div(class='signup-person' style='background-image: url(https://www.rememberthemilk.com/img/hp_person3.png?1639486969);')
+                    div(class='signup-person' style='background-image: url(https://www.rememberthemilk.com/img/hp_person2.png?1639486969);')
+                    div(class='signup-person' style='background-image: url(https://www.rememberthemilk.com/img/hp_person4.png?1639486969);')
+                h2 Join millions of people getting more organized and productive!
+        div(class='rightHalf')
+            div(class='buttons buttons2')
+                a(href="/users/demologin" class="signup btn-primary" id='demo') Demo User
+                a(href="/users/login" class='signup btn-primary') Log in
+            div(class='login-form')
+                h3 Sign up for free.
+                +validationErrorSummary(errors)
+                form(action='/users/register' method='post')
+                    input(type='hidden' name='_csrf' value=csrfToken)
+                    div(class='input-lg')                    
+                        +field('', "emailAddress", null, 'text', "Email")
+                    div(class='input-lg')                        
+                        +field('', "username", null, 'text', "Username")
+                    div(class='input-lg')
+                        +field('', "Password", null, 'password', 'Password')
+                    //- div(class='input-lg')                        
+                    //-     +field("Confirm Password", "confirmPassword", "", 'password' )
+                    //- div(class='py-4')
+                    button(type='submit' class='btn btn-primary btn-block login-btn') Sign up!
+                    //- a(href='/' class='btn btn-warning ml-2') Cancel
+                //- div
+                //-     p: a(href='/users/login') Already have an account?
 //- ./views/user-login.pug

@@ -37,9 +37,9 @@ const restoreUser = async (req, res, next) => {
     }
 }
 const logoutUser = (req, res) => {
-    console.log(req.session.auth,'-before------------')
+    
     delete req.session.auth;
-    console.log(req.session.auth,'-after------------')
+    
 }
 
 module.exports = {
