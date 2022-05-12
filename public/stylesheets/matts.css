@@ -79,45 +79,7 @@
     justify-content: space-between;
 
 }
-/* #side-nav-bar {
-    display: flex;
-    border: 1px solid rgb(239, 236, 233);
-    padding: 3px 10px 3px 5px;
-}
-.listItem_li {
-    border: 1px solid black;
-    text-decoration: none;
-    margin-right: 15px;
-    padding: 5px 50px 5px 50px;
-    margin-top: 3px;
-    margin-bottom: 5px;
-}
-.lists {
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    text-decoration: none;
-    margin-top: 2px;
-    margin-bottom: 2px;
-    list-style-type: none;
-}
-.lists > a {
-    align-self: center;
-    text-align: center;
-    text-decoration: none;
-    color: #030607;
-    font-size: smaller;
-    border: 1px solid black;
-    border-radius: 5px;
-    background-color:#B1ADA3;
-    padding: 3px;
-    margin-top: 30px;
-    margin-bottom: 30px;
-}
-} */
-#side-nav-bar {
 
-}
 .lists {
     background-color: darkgray;
     display: flex;
@@ -134,9 +96,9 @@
     background-color: darkgrey;
     padding-top: 10px;
     margin-top: 10px;
-
 }
 #logo-container > a{
+    text-decoration: none;
     width: 178px;
     background-color: #fff;
     border-radius: 5px;
@@ -144,6 +106,9 @@
     padding-right: 10px;
     margin-left: 10px;
     margin-top: 10px;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
 }
 .lists > li {
     background-color: #fff;
@@ -163,13 +128,7 @@
     font-size: smaller;
     text-decoration: none;
 }
-#logo-container > a {
-    text-align: center;
-    justify-content: center;
-    align-items: center;
 
-
-}
 #table-wrapper {
     display: flex;
     flex-direction: column;
@@ -178,17 +137,24 @@
     background-color: darkgray;
     margin-top: 10px;
     padding-top: 10px;
+    padding-left: 100px;
+
 }
 #table-wrapper > a {
     background-color: #fff;
-    margin: 0px 0px 0px 10px;
+    margin: 0px 0px 0px 0px;
     padding: 0px 10px;
     border-radius: 5px;
+    text-decoration: none;
 }
+/* th {
+    width: 300px;
+} */
 td {
     background-color: #fff;
     padding: 0px 100px 0px 100px;
     width: 300px;
+    white-space: nowrap;
 }
 
 #taskTableData  {
@@ -198,9 +164,12 @@ td {
 #nav_title {
     justify-content: start;
 }
-
+#side-nav-bar {
+    background-color: darkgray;
+    margin-top: 10px;
+}
 table {
- background-color: red;
+ background-color: darkgray;
 }
 
 .footer_headings {
@@ -212,4 +181,7 @@ table {
 .footer_subs {
     list-style-type: none;
     text-align: center;
+}
+#task-content-wrapper {
+    padding-left: 100px;
 }
