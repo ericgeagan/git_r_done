@@ -50,7 +50,8 @@
 
 .nav_footer_container {
     display: flex;
-    align-items: center;
+    flex-direction: row;
+    /* align-items: center; */
     justify-content: space-around;
     border-top: 2px solid black;
     position: relative;
@@ -202,4 +203,13 @@ table {
  background-color: red;
 }
 
-
+.footer_headings {
+    font-size: 24px;
+    font-weight: bold;
+    list-style-type: none;
+     border-bottom: 1px solid darkgray
+}
+.footer_subs {
+    list-style-type: none;
+    text-align: center;
+}
