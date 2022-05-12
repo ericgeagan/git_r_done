@@ -15,11 +15,12 @@ block content
           //- Review before merging!
           //- Create a link to each list present in our Db
           ul(class='lists')
-            each list in lists
-              //-   //- Click listener to display tasks in list.
-              li(class=`listItem_${list.id}`)= list.name
-              a(href='lists/' + list.id + '/edit') Edit
-              //- End List population
+              li(id='allTasks') All Tasks
+              each list in lists
+                //-   //- Click listener to display tasks in list.
+                li(class=`listItem_${list.id}`)= list.name
+                a(href='lists/' + list.id + '/edit') Edit
+                //- End List population
 
 
     //- Main task list - will be populated after selecting a list.
@@ -32,7 +33,4 @@ block content
             th Task
             th Completed?
               tr(id='taskTableData')
-
-
-
               div(id='task-detail-pane')
