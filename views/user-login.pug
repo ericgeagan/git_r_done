@@ -18,7 +18,9 @@ block content
                     div(class='login-curator-avatar' style=`background-image: url('/icons/${curatorIcon}.png')`)
                     div(class='login-curator-text') Quotes created by Group 7, renowed productivity experts
         div(class='rightHalf')
-            a(class='signup btn-primary' href='/users/register') Sign up for free
+            div(class='buttons')
+                a(href="/users/demologin" class="signup btn-primary" id='demo') Demo User
+                a(class='signup btn-primary' href='/users/register') Sign up for free
             div(class='login-form') 
                 h3 Been here before? Welcome back!
                 +validationErrorSummary(errors)
