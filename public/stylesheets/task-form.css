@@ -40,9 +40,9 @@ label {
 .task-priority {
     margin-top: 25px;
 }
-body {
+/* body {
     background-color: #0060BF;
-}
+} */
 #sub-button {
     height: 50px;
     width: 200px;
@@ -69,13 +69,13 @@ p {
     color: white;
 }
 #go-back {
-    background-color: #0060BF;
+    background-color: rgb(215, 231, 245);
     height: 35px;
     width: 95px;
     font-family: arial;
     position: absolute;
     z-index: 1;
-    border-top: 2px solid #0060BF;
+    border-top: 2px solid rgb(215, 231, 245);
     border-radius: 0px 0px 7px 7px;
     border-left: 2px solid black;
     border-right: 2px solid black;
@@ -87,6 +87,7 @@ a {
 }
 #go-back p {
     padding: 9px;
+    color: black;
 }
 #title {
     margin: auto;
