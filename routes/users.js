@@ -128,10 +128,22 @@ asyncHandler(async (req, res, next) => {
   let errors = [];
   const validatorErrors = validationResult(req);
 
+  if (emailAddress === '' || password === '') {
+    errors.push('Login failed for the provided email address and password');
+    // errors = validatorErrors.array().map((error) => error.msg);
+    res.render('user-login', {
+      title: 'Login',
+      emailAddress,
+      errors,
+      csrfToken: req.csrfToken(),
+    });
+  }
+
+
   if (validatorErrors.isEmpty()) {
     // Attempt to get the user by their email address.
     const user = await db.User.findOne({ where: { email: emailAddress } });
-    // console.log(user)
+    // console.log(`Logging in as: ${user}`)
     if (user !== null) {
       // If the user exists then compare their password
       // to the provided password.
@@ -145,10 +157,10 @@ asyncHandler(async (req, res, next) => {
     }
 
     // Otherwise display an error message to the user.
+   else {
     errors.push('Login failed for the provided email address and password');
-  } else {
-    errors = validatorErrors.array().map((error) => error.msg);
-
+    console.log(`******** ${errors} *******`);
+    // errors = validatorErrors.array().map((error) => error.msg);
     res.render('user-login', {
       title: 'Login',
       emailAddress,
@@ -156,14 +168,14 @@ asyncHandler(async (req, res, next) => {
       csrfToken: req.csrfToken(),
     });
   }
-}));
+}}));
 
 // Log Out Route
 
 router.get('/logout', asyncHandler(async(req, res) => {
-  
+
   logoutUser(req, res);
-  
+
   res.redirect('/users/login')
 }))
 
