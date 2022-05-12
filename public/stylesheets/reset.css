@@ -25,3 +25,7 @@ body, header, nav {
 h1 {
   font-size: 2rem;
 }
+
+* {
+  font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}

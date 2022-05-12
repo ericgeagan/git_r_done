@@ -1,4 +1,4 @@
-extends layout.pug
+//- extends layout.pug
 
 include utils.pug
 
@@ -6,14 +6,26 @@ block content
     link(rel='stylesheet', type='text/css', href='/stylesheets/login.css')
     div(class='login-page')
         div(class='leftHalf')
-            div test
+            div(class='left-items')
+                a(href='/')
+                    img(src='/icons/gitrdoneMenu.png')
+                blockquote 
+                    p “The essence of being human is that one does not seek perfection.”
+                    footer -  George Orwell
+                div(class='login-curator')
+                    div(class='login-curator-avatar')
+                    div(class='login-curator-text') Quotes created by Group 7, renowed productivity experts
         div(class='rightHalf')
-            div(class='login-form')
+            a(class='signup btn-primary' href='/users/register') Sign up for free
+            div(class='login-form') 
+                h3 Been here before? Welcome back!
                 +validationErrorSummary(errors)
                 form(action='/users/login' method='post')
                     input(type='hidden' name='_csrf' value=csrfToken)
-                    +field('', 'emailAddress', emailAddress, 'text', 'Email')
-                    +field('', 'password', null, 'password', 'Password')
+                    div(class='input-lg')
+                        +field('', 'emailAddress', emailAddress, 'text', 'Email')
+                    div(class='input-lg')
+                        +field('', 'password', null, 'password', 'Password')
                     div(class='py-4')
-                    button(type='submit' class='btn btn-primary login-btn') Login
+                    button(type='submit' class='btn btn-primary btn-block login-btn') Log in
                     //- a(href='/' class='btn btn-warning ml-2') Cancel
