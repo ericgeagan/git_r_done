@@ -71,3 +71,24 @@ p {
     margin: auto;
     color: white;
 }
+#go-back {
+    background-color: #0060BF;
+    height: 35px;
+    width: 95px;
+    font-family: arial;
+    position: absolute;
+    z-index: 1;
+    border-top: 2px solid #0060BF;
+    border-radius: 0px 0px 7px 7px;
+    margin-top: -2px;
+}
+a {
+    text-decoration: none;
+}
+#go-back p {
+    padding: 9px;
+}
+#title {
+    margin: auto;
+    font-family: arial;
+}
