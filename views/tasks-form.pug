@@ -26,8 +26,8 @@ div(id='form-wrapper')
     //- label Completed?
     //- input(type='checkbox' name='completed' value=task.completed)
     label Estimated Time
-    input(type='number' name='estimatedTime' value=task.estimatedTime)
+    input(type='number' name='estimatedTime' value=task.estimatedTime placeholder='How long will the task take?')
     label Note
-    textarea(name='note' value=task.note id='taskNote')
+    textarea(name='note' value=task.note id='taskNote' placeholder='Anything else we should note? (Limit 280 chars)')
     button(type='submit' id='sub-button') Submit
   p Required fields are marked with *
