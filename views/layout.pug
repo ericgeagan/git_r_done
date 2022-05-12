@@ -3,24 +3,21 @@ html
   head
       block head
         title="Express Starter App"
-        link(rel='stylesheet' href='/stylesheets/reset.css')
+        link(rel='stylesheet' href='/stylesheets/matts.css')
   body
     div(class="navbar_container")
-      a(class="navbar_left_logo")
-      ul(id="navbar_right")
-        li(class="nav_link" id="login")
-          a(href="/users/login") Log in
-        li(class="nav_link" id='signUp') 
-          a(href="/users/register") Sign Up
-        li(class="nav_link" id="demo-login")
-          a(href="/users/demologin") Demo User Log In
-        li(class="nav_link" id='logout') 
-          a(href="/users/logout") Log Out
-        li(class="nav_link" id="Menu") Menu
+      a(href="/lists")
+        img(class="navbar_left_logo" src="../public/icons/img.png" href="/lists")
+      div(id="navbar_right")
+        a(href="/users/login" class="nav_link" id="login") Log in
+        a(href="/users/register" class="nav_link" id='signUp') Sign up
+        a(href="/users/logout" class="nav_link" id='signUp') Log Out
+        a(href="/users/demologin" class="nav_link" id='signUp') Demo User Log In
+        select(type="dropdown" class="nav_link" id="Menu") Menu
+    block content
     div(class="nav_footer_container")
       div
         ul(class="nav_stack")
-          li(class="footer_headings")
+          li(class="footer_headings") 
           li Sub Link Here
           //- Repeat lines 14-17 for rest of groupings
-    block content
