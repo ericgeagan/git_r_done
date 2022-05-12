@@ -115,7 +115,7 @@
 }
 } */
 #side-nav-bar {
-    padding-top: 15px;
+
 }
 .lists {
     background-color: darkgray;
@@ -131,7 +131,8 @@
 }
 #logo-container {
     background-color: darkgrey;
-
+    padding-top: 10px;
+    margin-top: 10px;
 
 }
 #logo-container > a{
@@ -165,4 +166,40 @@
     text-align: center;
     justify-content: center;
     align-items: center;
+
+
 }
+#table-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: darkgray;
+    margin-top: 10px;
+    padding-top: 10px;
+}
+#table-wrapper > a {
+    background-color: #fff;
+    margin: 0px 0px 0px 10px;
+    padding: 0px 10px;
+    border-radius: 5px;
+}
+td {
+    background-color: #fff;
+    padding: 0px 100px 0px 100px;
+    width: 300px;
+}
+
+#taskTableData  {
+    background-color: red;
+
+}
+#nav_title {
+    justify-content: start;
+}
+
+table {
+ background-color: red;
+}
+
+
