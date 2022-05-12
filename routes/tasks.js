@@ -62,7 +62,8 @@ router.get('/user', asyncHandler(async (req, res, next) => {
 			model: List,
 			where: {userId},
 			order: [["createdAt", "DESC"]]
-		}
+		},
+		order: [["completed", "ASC"]] //order by completed or not
 		
 	})
 	res.json({ tasks })
