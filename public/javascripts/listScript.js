@@ -17,8 +17,10 @@
         taskdata.forEach(task => {
 
         let tasktdName = document.createElement('td');
+        tasktdName.setAttribute('class', "task_row")
         tasktdName.innerText = task.name;
         let tasktdCompleted = document.createElement('td');
+        tasktdCompleted.setAttribute('class', "completed_rows")
         tasktdCompleted.innerText = task.completed;
         let tasksTable = document.querySelector("#taskTableData");
         let newRow = document.createElement('tr');
@@ -56,8 +58,10 @@
       taskdata.forEach(task => {
 
       let tasktdName = document.createElement('td');
+      tasktdName.setAttribute('class', "task_row")
       tasktdName.innerText = task.name;
       let tasktdCompleted = document.createElement('td');
+      tasktdCompleted.setAttribute('class', "completed_rows")
       tasktdCompleted.innerText = task.completed;
       let tasksTable = document.querySelector("#taskTableData");
       let newRow = document.createElement('tr');
@@ -158,7 +162,9 @@ window.addEventListener("load",  () => {
  //Populates Task Table with all tasks respective to that list.
   const lists = document.querySelector(".lists");
   const allTasks = document.getElementById('allTasks');
+
   const taskDetailPane = document.querySelector('.taskTable')
+
 
   //Click List to Display Lists/tasks CallBack
   const callBack = (e) => {

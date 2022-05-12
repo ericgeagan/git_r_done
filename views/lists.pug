@@ -30,8 +30,9 @@ block content
         a(href='/tasks/form') Create new task form
         table(class='taskTable')
           tr
-            th Task
-            th Completed?
+            th(class="table_header" id="task_header")
+              div Task
+              div Done?
               tr(id='taskTableData')
         div(id='task-detail-pane')
           div Task Name
