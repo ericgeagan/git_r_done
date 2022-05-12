@@ -28,9 +28,29 @@ block content
       //- Task List Wrapper
       div(id='table-wrapper')
         a(href='/tasks/form') Create new task form
-        table
+        table(class='taskTable')
           tr
             th Task
             th Completed?
               tr(id='taskTableData')
-              div(id='task-detail-pane')
+        div(id='task-detail-pane')
+          div Task Name
+            span(id='taskName')
+          div Priority
+            span(id='priority') 
+          div Due Date
+            span(id='dueDate')
+          div Start Date
+            span(id='startDate')
+          div Completed?
+            span(id='completed')
+          div Estimated Time
+            span(id='estimatedTime')
+          div Note
+            span(id='note')
+          div List ID
+            span(id='listId')
+          div Created At
+            span(id='createdAt')
+          div Updated At
+            span(id='updatedAt')
