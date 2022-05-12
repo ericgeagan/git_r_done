@@ -127,8 +127,13 @@ footer {
 	border-color: transparent;
 }
 
+.buttons {
+	display: block;
+	margin-left: 135px;
+}
+
 .signup {
-	margin: 43px -2px 0 270px;
+	margin: 43px -2px 0 15px;
 	padding: 8px 11px 8px;
 	font-size: 15px;
 	font-weight: 700;
