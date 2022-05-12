@@ -17,6 +17,8 @@ label {
     background-color: white;
     padding-left: 20px;
     padding-right: 20px;
+    border: 2px solid black;
+    border-radius: 7px;
 }
 #task-form > input {
     height: 50px;
@@ -31,14 +33,11 @@ label {
     font-size: 30px;
     padding-left: 5px;
     font-weight: bold;
+    border-radius: 7px;
 }
 label {
     margin: auto;
     padding-top: 20px;
-}
-h1 {
-    padding-top: 50px;
-    margin: auto;
 }
 .task-priority {
     margin-top: 25px;
@@ -50,10 +49,25 @@ body {
     height: 50px;
     width: 200px;
     margin: auto;
-    background-color: #2ab27b;
+    background-color: dodgerblue;
     font-family: arial;
+    font-weight: bold;
     font-size: 28px;
+    border-radius: 7px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    border: 0px solid white;
+    color: white;
 }
 #sub-button:hover {
-    background-color: #6a4ca6;
+    background-color: dodgerblue;
+    border-radius: 7px;
+}
+#taskNote {
+    height: 50px;
+    border-radius: 7px;
+}
+p {
+    margin: auto;
+    color: white;
 }
