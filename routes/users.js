@@ -128,6 +128,18 @@ asyncHandler(async (req, res, next) => {
   let errors = [];
   const validatorErrors = validationResult(req);
 
+  if (emailAddress === '' || password === '') {
+    errors.push('Login failed for the provided email address and password');
+    // errors = validatorErrors.array().map((error) => error.msg);
+    res.render('user-login', {
+      title: 'Login',
+      emailAddress,
+      errors,
+      csrfToken: req.csrfToken(),
+    });
+  }
+
+
   if (validatorErrors.isEmpty()) {
     // Attempt to get the user by their email address.
     const user = await db.User.findOne({ where: { email: emailAddress } });
@@ -147,8 +159,8 @@ asyncHandler(async (req, res, next) => {
     // Otherwise display an error message to the user.
    else {
     errors.push('Login failed for the provided email address and password');
-    errors = validatorErrors.array().map((error) => error.msg);
-
+    console.log(`******** ${errors} *******`);
+    // errors = validatorErrors.array().map((error) => error.msg);
     res.render('user-login', {
       title: 'Login',
       emailAddress,
