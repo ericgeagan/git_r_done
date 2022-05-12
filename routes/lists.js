@@ -131,19 +131,9 @@ router.get('/:listId', csrfProtection, asyncHandler(async(req, res) => {
       }
     }));
 
-//   router.get('/park/delete/:id(\\d+)', csrfProtection,
-//     asyncHandler(async (req, res) => {
-//       const parkId = parseInt(req.params.id, 10);
-//       const park = await db.Park.findByPk(parkId);
-//       res.render('park-delete', {
-//         title: 'Delete Park',
-//         park,
-//         csrfToken: req.csrfToken(),
-//       });
-//     }));
 
   router.get('/:id(\\d+)/delete', csrfProtection,
-// router.post('/lists/:id', csrfProtection,
+
   asyncHandler(async (req, res) => {
         console.log("DELETE ROUTE HIT")
       const listId = parseInt(req.params.id, 10);

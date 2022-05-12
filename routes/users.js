@@ -160,10 +160,24 @@ asyncHandler(async (req, res, next) => {
 
 // Log Out Route
 
-router.post('/logout', (req, res) => {
+router.get('/logout', asyncHandler(async(req, res) => {
+  console.log(req.session.auth,'-before------------')
   logoutUser(req, res);
-  res.redirect('/login')
-})
+  console.log(req.session.auth,'-after------------')
+  res.redirect('/users/login')
+}))
+
+
+//DEMO USER LOGIN ROUTE
+
+
+router.get('/demologin', csrfProtection, asyncHandler(async(req, res) => {
+  const user = await db.User.findByPk(1)
+  console.log(user,'user-----------------')
+  loginUser(req, res, user);
+
+
+}));
 
 
 module.exports = router;
