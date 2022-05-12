@@ -1,15 +1,33 @@
-extends layout.pug
+//- extends layout.pug
 
 include utils.pug
 
 block content
-    div(class='leftHalf')
-    div(class='rightHalf')
-        +validationErrorSummary(errors)
-        form(action='/users/login' method='post')
-            input(type='hidden' name='_csrf' value=csrfToken)
-            +field('Email Address', 'emailAddress', emailAddress)
-            +field('Password', 'password', null, 'password')
-            div(class='py-4')
-            button(type='submit' class='btn btn-primary') Login
-            a(href='/' class='btn btn-warning ml-2') Cancel
+    link(rel='stylesheet', type='text/css', href='/stylesheets/login.css')
+    div(class='login-page')
+        div(class='leftHalf')
+            div(class='left-items')
+                a(href='/')
+                    img(src='/icons/gitrdoneMenu.png')
+                blockquote 
+                    //- p “The essence of being human is that one does not seek perfection.”
+                    p= `“${quote.text}”`
+                    //- footer -  George Orwell
+                    footer= `-  ${quote.author}`
+                div(class='login-curator')
+                    div(class='login-curator-avatar' style=`background-image: url('/icons/${curatorIcon}.png')`)
+                    div(class='login-curator-text') Quotes created by Group 7, renowed productivity experts
+        div(class='rightHalf')
+            a(class='signup btn-primary' href='/users/register') Sign up for free
+            div(class='login-form') 
+                h3 Been here before? Welcome back!
+                +validationErrorSummary(errors)
+                form(action='/users/login' method='post')
+                    input(type='hidden' name='_csrf' value=csrfToken)
+                    div(class='input-lg')
+                        +field('', 'emailAddress', emailAddress, 'text', 'Email')
+                    div(class='input-lg')
+                        +field('', 'password', null, 'password', 'Password')
+                    div(class='py-4')
+                    button(type='submit' class='btn btn-primary btn-block login-btn') Log in
+                    //- a(href='/' class='btn btn-warning ml-2') Cancel

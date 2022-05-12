@@ -105,15 +105,49 @@ router.post('/register', csrfProtection, registerValidators, asyncHandler(async 
 
 }))
 
+// Get random number between 0 and max (0 inclusive max exclusive)
+function getRandomInt(max) {
+  // Returns a random number between 0 and (max - 1)
+  return Math.floor(Math.random() * max)
+}
 
+function getRandomQuote() {
+  const quotes = [
+    'The essence of being human is that one does not seek perfection.',
+    'A year from now you may wish you had started today.',
+    "Everything’s impossible until somebody does it."
+  ]
 
+  const authors = [
+    'George Orwell',
+    'Unknown',
+    'Bruce Wayne'
+  ]
 
+  let index = getRandomInt(quotes.length)
+  return {
+    text: quotes[index],
+    author: authors[index]
+  }
+}
+
+function getRandomIcon() {
+  const list = [
+    'allen',
+    'eric',
+    'matt'
+  ]
+
+  return list[getRandomInt(list.length)]
+}
 
 // Login Routes
 router.get('/login', csrfProtection, (req, res) => {
   res.render('user-login', {
     title: 'Login',
     csrfToken: req.csrfToken(),
+    curatorIcon: getRandomIcon(),
+    quote: getRandomQuote()
   });
 });
 
