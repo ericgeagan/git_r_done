@@ -10,10 +10,12 @@ block content
                 a(href='/')
                     img(src='/icons/gitrdoneMenu.png')
                 blockquote 
-                    p “The essence of being human is that one does not seek perfection.”
-                    footer -  George Orwell
+                    //- p “The essence of being human is that one does not seek perfection.”
+                    p= `“${quote.text}”`
+                    //- footer -  George Orwell
+                    footer= `-  ${quote.author}`
                 div(class='login-curator')
-                    div(class='login-curator-avatar')
+                    div(class='login-curator-avatar' style=`background-image: url('/icons/${curatorIcon}.png')`)
                     div(class='login-curator-text') Quotes created by Group 7, renowed productivity experts
         div(class='rightHalf')
             a(class='signup btn-primary' href='/users/register') Sign up for free

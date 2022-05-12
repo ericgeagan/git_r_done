@@ -80,7 +80,8 @@ footer {
 }
 
 .login-curator-avatar {
-	background-image: url('/icons/eric.png');
+	/* background-image: url('/icons/eric.png'); */
+	background-repeat: no-repeat;
 	width: 64px;
 	height: 64px;
 	border-radius: 50%;
