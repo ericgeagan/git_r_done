@@ -129,38 +129,10 @@
     text-decoration: none;
 }
 
-#table-wrapper {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    background-color: darkgray;
-    margin-top: 10px;
-    padding-top: 10px;
-    padding-left: 100px;
-
-}
-#table-wrapper > a {
-    background-color: #fff;
-    margin: 0px 0px 0px 0px;
-    padding: 0px 10px;
-    border-radius: 5px;
-    text-decoration: none;
-}
 /* th {
     width: 300px;
 } */
-td {
-    background-color: #fff;
-    padding: 0px 100px 0px 100px;
-    width: 300px;
-    white-space: nowrap;
-}
 
-#taskTableData  {
-    background-color: red;
-
-}
 #nav_title {
     justify-content: start;
 }
@@ -168,15 +140,12 @@ td {
     background-color: darkgray;
     margin-top: 10px;
 }
-table {
- background-color: darkgray;
-}
 
 .footer_headings {
     font-size: 24px;
     font-weight: bold;
     list-style-type: none;
-     border-bottom: 1px solid darkgray
+    border-bottom: 1px solid darkgray
 }
 .footer_subs {
     list-style-type: none;
@@ -184,4 +153,63 @@ table {
 }
 #task-content-wrapper {
     padding-left: 100px;
+}
+
+.task_row {
+    background-color: #0060bf;
+    white-space: nowrap;
+    text-align: left;
+    background-color: #fff;
+}
+.completed_rows {
+    background-color: #009dff;
+    text-align: center;
+}
+#task_header {
+    background-color: #fff;
+    border-bottom: 1px solid dark gray;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+#completed_header {
+    background-color: #0060bf;
+}
+
+/* td {
+    background-color: #fff;
+    white-space: nowrap;
+} */
+    /* th {
+    background-color: red;
+}
+table {
+    background-color: darkgray;
+}
+
+
+*/
+#table-wrapper > a {
+    background-color: #fff;
+    margin: 0px 0px 0px 0px;
+    padding: 0px 10px;
+    border-radius: 5px;
+    text-decoration: none;
+}
+
+#table-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: darkgray;
+    margin-top: 10px;
+    padding-top: 20px;
+    padding-left: 100px;
+    padding-right: 100px;
+}
+
+#taskTableData  {
+    background-color: #0060bf;
+
 }
