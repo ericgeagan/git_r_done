@@ -21,7 +21,7 @@
         tasktdName.innerText = task.name;
         let tasktdCompleted = document.createElement('td');
         tasktdCompleted.setAttribute('class', "completed_rows")
-        tasktdCompleted.innerText = task.completed;
+       // tasktdCompleted.innerText = task.completed;
         let tasksTable = document.querySelector("#taskTableData");
         let newRow = document.createElement('tr');
         newRow.id = `task-row-${task.id}`
@@ -29,8 +29,26 @@
         tasksTable.appendChild(newRow);
         newRow.appendChild(tasktdName);
         newRow.appendChild(tasktdCompleted);
+
+        //CREATING CHECKBOXES 
+        const checkbox = document.createElement('input')
+        checkbox.setAttribute('type','checkbox')
+        tasktdCompleted.appendChild(checkbox)
+        checkbox.checked = task.completed;
+        //CHECKBOX EVENT LISTENER TO UPDATE THE TASK 'COMPLETED' VALUE
+        checkbox.addEventListener('click', async (e) => {
+      
+          await fetch (`/tasks/${task.id}/edit`, {
+            method: "PUT",
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({completed: !task.completed})
+            })
+            .then(res=>res.json()).then(body=>console.log(body))
+        })
     })})
   }
+
+
 
   //Removes all child nodes before populating table---
   function removeChildren () {
@@ -62,7 +80,7 @@
       tasktdName.innerText = task.name;
       let tasktdCompleted = document.createElement('td');
       tasktdCompleted.setAttribute('class', "completed_rows")
-      tasktdCompleted.innerText = task.completed;
+     // tasktdCompleted.innerText = task.completed;
       let tasksTable = document.querySelector("#taskTableData");
       let newRow = document.createElement('tr');
       newRow.id = `task-row-${task.id}`
@@ -70,6 +88,22 @@
       tasksTable.appendChild(newRow);
       newRow.appendChild(tasktdName);
       newRow.appendChild(tasktdCompleted);
+
+          //CREATING CHECKBOXES 
+          const checkbox = document.createElement('input')
+          checkbox.setAttribute('type','checkbox')
+          tasktdCompleted.appendChild(checkbox)
+          checkbox.checked = task.completed;
+          //CHECKBOX EVENT LISTENER TO UPDATE THE TASK 'COMPLETED' VALUE
+          checkbox.addEventListener('click', async (e) => {
+        
+            await fetch (`/tasks/${task.id}/edit`, {
+              method: "PUT",
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({completed: !task.completed})
+              })
+              .then(res=>res.json()).then(body=>console.log(body))
+          })
   })})
 }
 //delete tasks callback
@@ -85,86 +119,41 @@ const deleteTaskCallBack = async (e) => {
   { method: "DELETE"}
   ).then(res=>res.json()).then(data=>console.log(data))
 }
+
 //delete lists callback
-const deleteListCallBack = async (e) => {
-  e.stopPropagation();
-  e.preventDefault();
-  const deleteListButton = e.target;
-  const deleteListId = deleteListButton.getAttribute('id').slice(3);
-  const relevantList = document.getElementById(`dlb${deleteListId}`);
-  relevantList.remove();
+// const deleteListCallBack = async (e) => {
+//   e.stopPropagation();
+//   e.preventDefault();
+//   const deleteListButton = e.target;
+//   const deleteListId = deleteListButton.getAttribute('id').slice(3);
+//   const relevantList = document.getElementById(`dlb${deleteListId}`);
+//   relevantList.remove();
 
-    await fetch(`/lists/${deleteListId}/delete`, {
-      method: "DELETE"
-    }).then(res=>res.json()).then(data=>console.log(data))
-}
-
-  //Show Clicked Tasks Details
-//   async function showDetails(taskId) {
-//     const taskDetails = await fetch(`/tasks/${taskId}`, {
-//         method: "GET",
-//         headers: {
-//             "Content-Type": "application/json",
-//       },
-//   })
-//   //Parses
-//   .then(response => response.json())
-//   //Creates table elements and assigns task data
-//   .then(data => {
-
-
-// //finding the HTML containers for the details info
-//       const taskName = document.getElementById('')
-//       const priority = document.getElementById('')
-//       const dueDate = document.getElementById('')
-//       const startDate = document.getElementById('startDate')
-//       const completed = document.getElementById('completed')
-//       const estimatedTime = document.getElementById('estimatedTime')
-//       const note = document.getElementById('note')
-//       const listId = document.getElementById('listId')
-//       const createdAt = document.getElementById('createdAt')
-//       const updatedAt = document.getElementById('updatedAt')
-
-
-//     //  taskName.innerText = data.name
-
-//       console.log(data.name,'DATA NAME---------------');
-//       taskdata.forEach(task => {
-
-//       let tasktdName = document.createElement('td');
-//       tasktdName.innerText = task.name;
-//       let tasktdCompleted = document.createElement('td');
-//       tasktdCompleted.innerText = task.completed;
-//       let tasksTable = document.querySelector("#taskTableData");
-//       let newRow = document.createElement('tr');
-//       newRow.id = `task-${task.id}`
-//       tasksTable.appendChild(newRow);
-//       newRow.appendChild(tasktdName);
-//       newRow.appendChild(tasktdCompleted);
-//   }
-//   )})
+//     await fetch(`/lists/${deleteListId}/delete`, {
+//       method: "DELETE"
+//     }).then(res=>res.json()).then(data=>console.log(data))
 // }
 
+//Show Clicked Tasks Details
 async function showDetails(taskId) {
 
   const clickedTask = await fetch(`/tasks/${taskId}`)
   .then(res => res.json())
   .then(taskData=>{
 
-
-      //finding the HTML containers for the details info
-      const taskName = document.getElementById('taskName')
-      const priority = document.getElementById('priority')
-      const dueDate = document.getElementById('dueDate')
-      const startDate = document.getElementById('startDate')
-      const completed = document.getElementById('completed')
-      const estimatedTime = document.getElementById('estimatedTime')
-      const note = document.getElementById('note')
-      const listId = document.getElementById('listId')
-      const createdAt = document.getElementById('createdAt')
-      const updatedAt = document.getElementById('updatedAt')
-      const taskDeleteButtonContainer = document.getElementById('taskDeleteButtonContainer')
-      const deleteButtonCheck = document.querySelector('.deleteTaskButton')
+    //finding the HTML containers for the details info
+    const taskName = document.getElementById('taskName')
+    const priority = document.getElementById('priority')
+    const dueDate = document.getElementById('dueDate')
+    const startDate = document.getElementById('startDate')
+    const completed = document.getElementById('completed')
+    const estimatedTime = document.getElementById('estimatedTime')
+    const note = document.getElementById('note')
+    const listId = document.getElementById('listId')
+    const createdAt = document.getElementById('createdAt')
+    const updatedAt = document.getElementById('updatedAt')
+    const taskDeleteButtonContainer = document.getElementById('taskDeleteButtonContainer')
+    const deleteButtonCheck = document.querySelector('.deleteTaskButton')
 
     taskName.innerText = taskData.name
     priority.innerText = taskData.priority
@@ -240,7 +229,6 @@ window.addEventListener("load",  () => {
     e.stopPropagation();
     const clickedTask = e.target;
     const clickedTaskId = e.target.getAttribute('id').slice(5)
-    //console.log(clickedTaskId)
     showDetails(clickedTaskId)
 
   }
@@ -252,9 +240,7 @@ window.addEventListener("load",  () => {
   //Event Listeners
   lists.addEventListener("click", callBack)
   allTasks.addEventListener('click', getAllTasksForLoggedInUser)
-//add event listener for clicking task and displaying its details
-  taskDetailPane.addEventListener('click', taskDetailCallBack )
+  taskDetailPane.addEventListener('click', taskDetailCallBack) //add event listener for clicking task and displaying its details
 
-// delete button listener for lists
-
+  
 });
