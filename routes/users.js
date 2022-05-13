@@ -75,7 +75,7 @@ router.get('/register', csrfProtection, (req, res) => {
 
 // Create new user
 router.post('/register', csrfProtection, registerValidators, asyncHandler(async (req, res, next) => {
-  const { username, emailAddress, password } = req.body
+  const { username, emailAddress, password, confirmPassword } = req.body
   const hashedPassword = await bcrypt.hash(password, 10)
 
   const user = await db.User.build({
@@ -90,7 +90,8 @@ router.post('/register', csrfProtection, registerValidators, asyncHandler(async 
     const hashedPassword = await bcrypt.hash(password, 10);
     user.hashedPassword = hashedPassword;
     await user.save();
-    res.redirect('/users/login');
+    loginUser(req, res, user)
+    // res.redirect('/users/login');
   } else {
     const errors = validatorErrors.array().map((error) => error.msg);
     res.render('user-register', {
