@@ -2,6 +2,7 @@
 const express = require('express')
 const router = express.Router()
 const { check, validationResult } = require('express-validator')
+const { isLoggedIn } = require('../utils.js')
 
 // Internal Modules
 const db = require('../db/models')
@@ -28,7 +29,7 @@ const taskValidators = [
 ]
 
 //Get new task form
-router.get('/form', csrfProtection, asyncHandler(async(req, res) => {
+router.get('/form', csrfProtection, isLoggedIn, asyncHandler(async(req, res) => {
 	const userId = req.session.auth.userId;
 	const lists = await db.List.findAll({
 		where: {userId}
@@ -43,7 +44,7 @@ router.get('/form', csrfProtection, asyncHandler(async(req, res) => {
   }));
 
 // Get all tasks for a specific list -- passed to listScript.js
-router.get('/list/:id(\\d+)', asyncHandler(async (req, res, next) => {
+router.get('/list/:id(\\d+)', isLoggedIn, asyncHandler(async (req, res, next) => {
 	const listId = parseInt(req.params.id)
 	const tasks = await Task.findAll({
 		where: {
@@ -55,7 +56,7 @@ router.get('/list/:id(\\d+)', asyncHandler(async (req, res, next) => {
 }))
 
 // Get all tasks based on the currently logged in user-- passed to listScript.js
-router.get('/user', asyncHandler(async (req, res, next) => {
+router.get('/user', isLoggedIn, asyncHandler(async (req, res, next) => {
 	const userId = req.session.auth.userId
 	const tasks = await Task.findAll({
 		include: {
@@ -64,45 +65,45 @@ router.get('/user', asyncHandler(async (req, res, next) => {
 			order: [["createdAt", "DESC"]]
 		},
 		order: [["completed", "ASC"]] //order by completed or not
-		
+
 	})
 	res.json({ tasks })
 }))
 
 // Get a single task
-router.get('/:id(\\d+)', asyncHandler(async (req, res, next) => {
+router.get('/:id(\\d+)', isLoggedIn, asyncHandler(async (req, res, next) => {
 	const taskId = parseInt(req.params.id)
 	const task = await Task.findByPk(taskId)
 	res.json(task)
 }))
 
 // Create a single task
-router.post('/', csrfProtection, taskValidators, asyncHandler(async (req, res) => {
+router.post('/', csrfProtection, isLoggedIn, taskValidators, asyncHandler(async (req, res) => {
 	// console.log(req.body)
-	const { 
-		name, 
-		priority, 
-		dueDate, 
-		startDate, 
-		completed, 
-		estimatedTime, 
-		note, 
-		listId 
+	const {
+		name,
+		priority,
+		dueDate,
+		startDate,
+		completed,
+		estimatedTime,
+		note,
+		listId
 	} = req.body
 
 	const validatorErrors = validationResult(req)
 	console.log('aaaaaaaaaaa', typeof priority, typeof estimatedTime)
 
 	if (validatorErrors.isEmpty()) {
-		const task = await Task.create({ 
-			name, 
-			priority: priority === '' ? null : priority, 
-			dueDate: dueDate === '' ? null : dueDate, 
-			startDate: startDate === '' ? null : startDate, 
-			completed: completed === 'on' ? true : false, 
-			estimatedTime: estimatedTime === '' ? null : estimatedTime, 
-			note, 
-			listId 
+		const task = await Task.create({
+			name,
+			priority: priority === '' ? null : priority,
+			dueDate: dueDate === '' ? null : dueDate,
+			startDate: startDate === '' ? null : startDate,
+			completed: completed === 'on' ? true : false,
+			estimatedTime: estimatedTime === '' ? null : estimatedTime,
+			note,
+			listId
 		})
 		res.redirect('/lists')
 		// res.json(task)
@@ -111,13 +112,13 @@ router.post('/', csrfProtection, taskValidators, asyncHandler(async (req, res) =
 		const lists = await db.List.findAll({ where: { userId }})
 
 		const task = {
-			name, 
-			priority, 
-			dueDate, 
-			startDate, 
-			completed, 
-			estimatedTime, 
-			note, 
+			name,
+			priority,
+			dueDate,
+			startDate,
+			completed,
+			estimatedTime,
+			note,
 			listId
 		}
 
@@ -132,7 +133,7 @@ router.post('/', csrfProtection, taskValidators, asyncHandler(async (req, res) =
 }))
 
 // Get update task form
-router.get('/:id(\\d+)/edit', csrfProtection, asyncHandler(async (req, res, next) => {
+router.get('/:id(\\d+)/edit', csrfProtection, isLoggedIn, asyncHandler(async (req, res, next) => {
 	const taskId = parseInt(req.params.id)
 	const userId = req.session.auth.userId
 	const lists = await db.List.findAll({ where: { userId }})
@@ -147,32 +148,32 @@ router.get('/:id(\\d+)/edit', csrfProtection, asyncHandler(async (req, res, next
 }))
 
 // Update a single task
-router.post('/edit', csrfProtection, taskValidators, asyncHandler(async (req, res, next) => {
-	const { 
+router.post('/edit', csrfProtection, taskValidators, isLoggedIn,  asyncHandler(async (req, res, next) => {
+	const {
 		id,
-		name, 
-		priority, 
-		dueDate, 
-		startDate, 
-		completed, 
-		estimatedTime, 
-		note, 
+		name,
+		priority,
+		dueDate,
+		startDate,
+		completed,
+		estimatedTime,
+		note,
 		listId
 	} = req.body
 
 	
 	let task = await Task.findByPk(id)
 	const validatorErrors = validationResult(req)
-	
+
 	if (validatorErrors.isEmpty()) {
-		await task.update({ 
-			name, 
-			priority: priority === '' ? null : priority, 
-			dueDate: dueDate === '' ? null : dueDate, 
-			startDate: startDate === '' ? null : startDate, 
-			completed: completed === 'on' ? true : false, 
-			estimatedTime: estimatedTime === '' ? null : estimatedTime, 
-			note, 
+		await task.update({
+			name,
+			priority: priority === '' ? null : priority,
+			dueDate: dueDate === '' ? null : dueDate,
+			startDate: startDate === '' ? null : startDate,
+			completed: completed === 'on' ? true : false,
+			estimatedTime: estimatedTime === '' ? null : estimatedTime,
+			note,
 			listId: parseInt(listId)
 		})
 		res.redirect(`/lists`);
@@ -183,13 +184,13 @@ router.post('/edit', csrfProtection, taskValidators, asyncHandler(async (req, re
 
 		task = {
 			id,
-			name, 
-			priority, 
-			dueDate, 
-			startDate, 
-			completed, 
-			estimatedTime, 
-			note, 
+			name,
+			priority,
+			dueDate,
+			startDate,
+			completed,
+			estimatedTime,
+			note,
 			listId
 		}
 
@@ -204,7 +205,7 @@ router.post('/edit', csrfProtection, taskValidators, asyncHandler(async (req, re
 }))
 
 // Delete a single task
-router.delete('/:id(\\d+)/delete', asyncHandler(async (req, res, next) => {
+router.delete('/:id(\\d+)/delete', isLoggedIn, asyncHandler(async (req, res, next) => {
 	const taskId = parseInt(req.params.id)
 	const task = await Task.findByPk(taskId)
 	if (task) {
