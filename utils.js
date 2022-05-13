@@ -1,9 +1,19 @@
 const csrf = require('csurf');
 const { check, validationResult } = require('express-validator');
+const req = require('express/lib/request');
+const { rmSync } = require('fs');
 
 const csrfProtection = csrf({ cookie: true });
 
 const asyncHandler = (handler) => (req, res, next) => handler(req, res, next).catch(next);
+
+const isLoggedIn = (req, res, next) => {
+  if (req.session.auth === undefined) {
+    return res.redirect('/users/login');
+  } else {
+    return next();
+  }
+}
 
 const handleValidationErrors = (req, res, next) => {
   const validationErrors = validationResult(req);
@@ -24,6 +34,7 @@ module.exports = {
   csrfProtection,
   asyncHandler,
 	handleValidationErrors,
-  check, 
-  validationResult
+  check,
+  validationResult,
+  isLoggedIn
 };
