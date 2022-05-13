@@ -38,17 +38,15 @@ app.use(
     expires: new Date(Date.now()+ (10 * 60 * 1000)), //10 minute expiration
 
   })
-  );
+);
 
-  // create Session table if it doesn't already exist
-  store.sync();
+// create Session table if it doesn't already exist
+store.sync();
 
-  // restore
-  app.use(restoreUser)
+// restore
+app.use(restoreUser)
 
-
-  // Routes
-
+// Routes
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/lists', listsRouter);
@@ -64,8 +62,8 @@ app.use(function (err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
- console.log(err.message)
- console.log(sessionSecret)
+  // console.log(err.message)
+  // console.log(sessionSecret)
   // render the error page
   res.status(err.status || 500);
   res.render('error');

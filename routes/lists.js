@@ -5,7 +5,6 @@ var router = express.Router();
 const bcrypt = require("bcryptjs")
 const { isLoggedIn } = require('../utils.js')
 
-
 // Internal Modules
 const db = require('../db/models')
 const { User, List, Task } = db
@@ -17,15 +16,25 @@ const { requireAuth } = require('../auth')
 //variable we might need
 
 //route to get all lists
-router.get('/', csrfProtection, isLoggedIn, asyncHandler(async(req, res) => {
-    const userId = req.session.auth.userId
-    // grab all lists from the db
-    //const sessi = await db.Session.findAll()
-    //  console.log(req.session.auth, "SESSION********************")
-    const lists = await db.List.findAll( {where: { userId }})
-    const tasks = await db.Task.findAll( {include: {model: List, where: {userId: userId}}})
-    //maybe add titles or other variables later
-    res.render('lists', {lists, tasks})
+router.get('/', csrfProtection, asyncHandler(async(req, res) => {
+  if (req.session.auth === undefined) {
+    // If not logged in, and user clicks on the home icon
+    res.redirect('../');
+  }
+
+  const userId = req.session.auth.userId
+
+  // grab all lists from the db
+  //const sessi = await db.Session.findAll()
+  //  console.log(req.session.auth, "SESSION********************")
+  const lists = await db.List.findAll( {where: { userId }})
+  const tasks = await db.Task.findAll( {include: {model: List, where: {userId: userId}}})
+  //maybe add titles or other variables later
+  res.render('lists', {
+    lists,
+    tasks,
+    userId
+  })
 }))
 //Route to get new list form
 router.get('/form', csrfProtection, isLoggedIn, asyncHandler(async(req, res) => {
@@ -137,7 +146,14 @@ router.get('/:listId', csrfProtection, isLoggedIn, asyncHandler(async(req, res) 
  console.log('******************************HIT IT')
       const listId = parseInt(req.params.id, 10);
       const list = await db.List.findByPk(listId);
+      const tasks = await db.Task.findAll({
+        where: {
+          listId
+        }
+      })
       if(list) {
+        // console.log(tasks, "*********************tasks")
+        tasks.forEach(task => task.destroy())
         list.destroy()
       } else {
         res.json({message: "failed to delete list"})

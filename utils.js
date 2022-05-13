@@ -15,6 +15,14 @@ const isLoggedIn = (req, res, next) => {
   }
 }
 
+const isAlreadyLoggedIn = (req, res, next) => {
+  if (req.session.auth) {
+    return res.redirect('/lists')
+  } else {
+    return next();
+  }
+}
+
 const handleValidationErrors = (req, res, next) => {
   const validationErrors = validationResult(req);
 
@@ -36,5 +44,6 @@ module.exports = {
 	handleValidationErrors,
   check,
   validationResult,
-  isLoggedIn
+  isLoggedIn,
+  isAlreadyLoggedIn
 };

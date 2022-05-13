@@ -30,14 +30,14 @@
         newRow.appendChild(tasktdName);
         newRow.appendChild(tasktdCompleted);
 
-        //CREATING CHECKBOXES 
+        //CREATING CHECKBOXES
         const checkbox = document.createElement('input')
         checkbox.setAttribute('type','checkbox')
         tasktdCompleted.appendChild(checkbox)
         checkbox.checked = task.completed;
         //CHECKBOX EVENT LISTENER TO UPDATE THE TASK 'COMPLETED' VALUE
         checkbox.addEventListener('click', async (e) => {
-      
+
           await fetch (`/tasks/${task.id}/edit`, {
             method: "PUT",
             headers: { 'Content-Type': 'application/json' },
@@ -89,14 +89,14 @@
       newRow.appendChild(tasktdName);
       newRow.appendChild(tasktdCompleted);
 
-          //CREATING CHECKBOXES 
+          //CREATING CHECKBOXES
           const checkbox = document.createElement('input')
           checkbox.setAttribute('type','checkbox')
           tasktdCompleted.appendChild(checkbox)
           checkbox.checked = task.completed;
           //CHECKBOX EVENT LISTENER TO UPDATE THE TASK 'COMPLETED' VALUE
           checkbox.addEventListener('click', async (e) => {
-        
+
             await fetch (`/tasks/${task.id}/edit`, {
               method: "PUT",
               headers: { 'Content-Type': 'application/json' },
@@ -206,6 +206,8 @@ window.addEventListener("load",  () => {
         method: "DELETE"
       }).then(res=>res.json()).then(data=>console.log(data))
     })
+
+      
   })
  //Populates Task Table with all tasks respective to that list.
   const lists = document.querySelector(".lists");
@@ -242,5 +244,5 @@ window.addEventListener("load",  () => {
   allTasks.addEventListener('click', getAllTasksForLoggedInUser)
   taskDetailPane.addEventListener('click', taskDetailCallBack) //add event listener for clicking task and displaying its details
 
-  
+
 });
