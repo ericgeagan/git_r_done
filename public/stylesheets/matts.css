@@ -372,7 +372,9 @@ td {
     margin:5px;
 }
 .delete-list-button,
- .button-div > a{
+ .button-div > a,
+ .deleteTaskButton,
+ .editTaskButton{
     padding: 0px 2px 0px 2px;
     margin: 0px 5px 0px 5px;
     border: 1px solid #0060bf;
