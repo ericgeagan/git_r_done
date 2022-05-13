@@ -119,7 +119,7 @@ router.get('/:listId', csrfProtection, isLoggedIn, asyncHandler(async(req, res) 
 
       if (validatorErrors.isEmpty()) {
         await listToUpdate.update(list);
-        res.redirect(`/lists/${listId}`);
+        res.redirect(`/lists`);
       } else {
         const errors = validatorErrors.array().map((error) => error.msg);
         res.render('edit-list-form', {
