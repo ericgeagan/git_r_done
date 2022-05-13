@@ -51,6 +51,20 @@ footer {
 	height: 100vh;
 }
 
+.alert {
+	color: red;
+	max-width: 400px;
+	font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.alert ul {
+	padding-left: 0;
+}
+
+.alert li {
+	list-style: none;
+}
+
 .rightHalf {
 	float: right;
 	justify-content: center;
