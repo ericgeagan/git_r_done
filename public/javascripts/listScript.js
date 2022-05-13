@@ -72,7 +72,16 @@
       newRow.appendChild(tasktdCompleted);
   })})
 }
-
+//delete tasks callback
+const deleteTaskCallBack = async (e) => {
+  e.stopPropagation();
+  e.preventDefault();
+  const deleteButton = e.target;
+  const deleteButtonId = deleteButton.getAttribute('id').slice(7);
+  const relevantTask = document.getElementById(`task-row-${deleteButtonId}`);
+  relevantTask.remove()
+  //clickedTask.remove();
+}
   //Show Clicked Tasks Details
 //   async function showDetails(taskId) {
 //     const taskDetails = await fetch(`/tasks/${taskId}`, {
@@ -124,7 +133,7 @@ async function showDetails(taskId) {
   const clickedTask = await fetch(`/tasks/${taskId}`)
   .then(res => res.json())
   .then(taskData=>{
-    console.log(taskData.name)
+    
 
       //finding the HTML containers for the details info
       const taskName = document.getElementById('taskName')
@@ -137,8 +146,8 @@ async function showDetails(taskId) {
       const listId = document.getElementById('listId')
       const createdAt = document.getElementById('createdAt')
       const updatedAt = document.getElementById('updatedAt')
-
-
+      const taskDeleteButtonContainer = document.getElementById('taskDeleteButtonContainer')
+      const deleteButtonCheck = document.querySelector('.deleteTaskButton')
 
     taskName.innerText = taskData.name
     priority.innerText = taskData.priority
@@ -151,6 +160,20 @@ async function showDetails(taskId) {
     createdAt.innerText = taskData.createdAt
     updatedAt.innerText = taskData.updatedAt
 
+    //Removes a button if it exists from another list being clicked so only 1 delete button gets displayed
+    if (deleteButtonCheck) {
+    taskDeleteButtonContainer.removeChild(deleteButtonCheck)
+    }
+    const deleteTaskButton = document.createElement('button');
+    deleteTaskButton.setAttribute('type','submit')
+    deleteTaskButton.setAttribute('class','deleteTaskButton')
+    deleteTaskButton.setAttribute('id',`delete-${taskId}`)
+    deleteTaskButton.innerText = 'DELETE TASK'
+
+    taskDeleteButtonContainer.appendChild(deleteTaskButton)
+    
+
+    deleteTaskButton.addEventListener('click', deleteTaskCallBack)
 
   })
 }
@@ -165,7 +188,7 @@ window.addEventListener("load",  () => {
 
   const taskDetailPane = document.querySelector('.taskTable')
 
-
+//CALLBACKS FOR EVENT LISTENER
   //Click List to Display Lists/tasks CallBack
   const callBack = (e) => {
     e.stopPropagation();
@@ -186,6 +209,8 @@ window.addEventListener("load",  () => {
 
   }
 
+
+
   getAllTasksForLoggedInUser() //running on page load
 
   //Event Listeners
@@ -193,5 +218,6 @@ window.addEventListener("load",  () => {
   allTasks.addEventListener('click', getAllTasksForLoggedInUser)
 //add event listener for clicking task and displaying its details
   taskDetailPane.addEventListener('click', taskDetailCallBack )
+  
 
 });

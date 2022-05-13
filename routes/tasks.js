@@ -207,8 +207,11 @@ router.post('/edit', csrfProtection, taskValidators, asyncHandler(async (req, re
 router.get('/:id(\\d+)/delete', asyncHandler(async (req, res, next) => {
 	const taskId = parseInt(req.params.id)
 	const task = await Task.findByPk(taskId)
-	task.destroy();
-	res.redirect('/lists')
+	if (task) {
+	task.destroy(); 
+	res.json({"message":"Delete Successful"})
+}
+	else { res.json({"message":"Delete Failed"})}
 }))
 
 // Delete a single task
