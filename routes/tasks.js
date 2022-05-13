@@ -161,7 +161,7 @@ router.post('/edit', csrfProtection, taskValidators, isLoggedIn,  asyncHandler(a
 		listId
 	} = req.body
 
-	console.log('aaaaaaaaaaa', typeof priority, typeof estimatedTime, typeof listId, listId)
+	
 	let task = await Task.findByPk(id)
 	const validatorErrors = validationResult(req)
 
@@ -205,23 +205,15 @@ router.post('/edit', csrfProtection, taskValidators, isLoggedIn,  asyncHandler(a
 }))
 
 // Delete a single task
-router.get('/:id(\\d+)/delete', isLoggedIn, asyncHandler(async (req, res, next) => {
+router.delete('/:id(\\d+)/delete', isLoggedIn, asyncHandler(async (req, res, next) => {
 	const taskId = parseInt(req.params.id)
 	const task = await Task.findByPk(taskId)
-	task.destroy();
-	res.redirect('/lists')
+	if (task) {
+	task.destroy(); 
+	res.json({"message":"Delete Successful"})
+}
+	else { res.json({"message":"Delete Failed"})}
 }))
 
-// Delete a single task
-// router.delete('/:id(\\d+)/delete', asyncHandler(async (req, res, next) => {
-// 	const taskId = parseInt(req.params.id)
-// 	const task = await Task.findByPk(taskId)
-// 	if (task) {
-// 		await task.destroy()
-// 		res.status(204).end()
-// 	} else {
-// 		next(taskNotFoundError(taskId))
-// 	}
-// }))
 
 module.exports = router
