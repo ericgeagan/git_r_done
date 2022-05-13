@@ -186,16 +186,24 @@ asyncHandler(async (req, res, next) => {
       const passwordMatch = await bcrypt.compare(password, user.hashedPassword.toString());
       // console.log(passwordMatch)
       if (passwordMatch) {
-
+        // Correct Login
         loginUser(req, res, user);
-
+      } else {
+        // Incorrect password
+        errors.push('Login failed for the provided email address and password');
+        res.render('user-login', {
+          title: 'Login',
+          emailAddress,
+          errors,
+          curatorIcon: getRandomIcon(),
+          quote: getRandomQuote(),
+          csrfToken: req.csrfToken(),
+        });
       }
-    }
-
-    // Otherwise display an error message to the user.
-   else {
+    } else { 
+     // Otherwise display an error message to the user. (Incorrect email)
     errors.push('Login failed for the provided email address and password');
-    console.log(`******** ${errors} *******`);
+    // console.log(`******** ${errors} *******`);
     // errors = validatorErrors.array().map((error) => error.msg);
     res.render('user-login', {
       title: 'Login',
