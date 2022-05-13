@@ -142,14 +142,14 @@ function getRandomIcon() {
 }
 
 // Login Routes
-router.get('/login', csrfProtection, (req, res) => {
+router.get('/login', csrfProtection, asyncHandler(async(req, res) => {
   res.render('user-login', {
     title: 'Login',
     csrfToken: req.csrfToken(),
     curatorIcon: getRandomIcon(),
     quote: getRandomQuote()
   });
-});
+}));
 
 
 router.post('/login', csrfProtection, loginValidators,
@@ -169,6 +169,8 @@ asyncHandler(async (req, res, next) => {
       title: 'Login',
       emailAddress,
       errors,
+      curatorIcon: getRandomIcon(),
+      quote: getRandomQuote(),
       csrfToken: req.csrfToken(),
     });
   }
@@ -199,6 +201,8 @@ asyncHandler(async (req, res, next) => {
       title: 'Login',
       emailAddress,
       errors,
+      curatorIcon: getRandomIcon(),
+      quote: getRandomQuote(),
       csrfToken: req.csrfToken(),
     });
   }
