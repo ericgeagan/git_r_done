@@ -1,6 +1,12 @@
-div(id='form-wrapper')
-form(id='list-form' action='/lists' method='post')
-  input(type='hidden' name='_csrf' value=csrfToken)
-  label List Name *
-  input(type='text' name='name' class='list-name' required)
-  button(type='submit') Submit
+extends layout.pug
+include utils.pug
+
+block content
+ 
+  div(id='form-wrapper')
+  link(rel='stylesheet' href='/stylesheets/task-form.css')
+  form(id='list-form' action='/lists' method='post')
+    input(type='hidden' name='_csrf' value=csrfToken)
+    label List Name *
+    input(type='text' name='name' class='list-name' required)
+    button(type='submit' id="list-submit") Submit
