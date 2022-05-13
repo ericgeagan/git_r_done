@@ -80,7 +80,13 @@ const deleteTaskCallBack = async (e) => {
   const deleteButtonId = deleteButton.getAttribute('id').slice(7);
   const relevantTask = document.getElementById(`task-row-${deleteButtonId}`);
   relevantTask.remove()
-  //clickedTask.remove();
+
+   await fetch(`/tasks/${deleteButtonId}/delete`,
+  { method: "DELETE"}
+  ).then(res=>res.json()).then(data=>console.log(data))
+  
+
+
 }
   //Show Clicked Tasks Details
 //   async function showDetails(taskId) {

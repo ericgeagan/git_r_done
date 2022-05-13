@@ -160,7 +160,7 @@ router.post('/edit', csrfProtection, taskValidators, asyncHandler(async (req, re
 		listId
 	} = req.body
 
-	console.log('aaaaaaaaaaa', typeof priority, typeof estimatedTime, typeof listId, listId)
+	
 	let task = await Task.findByPk(id)
 	const validatorErrors = validationResult(req)
 	
@@ -204,7 +204,7 @@ router.post('/edit', csrfProtection, taskValidators, asyncHandler(async (req, re
 }))
 
 // Delete a single task
-router.get('/:id(\\d+)/delete', asyncHandler(async (req, res, next) => {
+router.delete('/:id(\\d+)/delete', asyncHandler(async (req, res, next) => {
 	const taskId = parseInt(req.params.id)
 	const task = await Task.findByPk(taskId)
 	if (task) {
@@ -214,16 +214,5 @@ router.get('/:id(\\d+)/delete', asyncHandler(async (req, res, next) => {
 	else { res.json({"message":"Delete Failed"})}
 }))
 
-// Delete a single task
-// router.delete('/:id(\\d+)/delete', asyncHandler(async (req, res, next) => {
-// 	const taskId = parseInt(req.params.id)
-// 	const task = await Task.findByPk(taskId)
-// 	if (task) {
-// 		await task.destroy()
-// 		res.status(204).end()
-// 	} else {
-// 		next(taskNotFoundError(taskId))
-// 	}
-// }))
 
 module.exports = router
