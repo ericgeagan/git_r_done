@@ -16,7 +16,7 @@ const { requireAuth } = require('../auth')
 //variable we might need
 
 //route to get all lists
-router.get('/', csrfProtection, isLoggedIn, asyncHandler(async(req, res) => {
+router.get('/', csrfProtection, asyncHandler(async(req, res) => {
   if (req.session.auth === undefined) {
     // If not logged in, and user clicks on the home icon
     res.redirect('../');
