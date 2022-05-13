@@ -17,14 +17,24 @@ const { requireAuth } = require('../auth')
 
 //route to get all lists
 router.get('/', csrfProtection, asyncHandler(async(req, res) => {
-    const userId = req.session.auth.userId
-    // grab all lists from the db
-    //const sessi = await db.Session.findAll()
-    //  console.log(req.session.auth, "SESSION********************")
-    const lists = await db.List.findAll( {where: { userId }})
-    const tasks = await db.Task.findAll( {include: {model: List, where: {userId: userId}}})
-    //maybe add titles or other variables later
-    res.render('lists', {lists, tasks})
+  if (req.session.auth === undefined) {
+    // If not logged in, and user clicks on the home icon
+    res.redirect('../');
+  }
+  
+  const userId = req.session.auth.userId
+
+  // grab all lists from the db
+  //const sessi = await db.Session.findAll()
+  //  console.log(req.session.auth, "SESSION********************")
+  const lists = await db.List.findAll( {where: { userId }})
+  const tasks = await db.Task.findAll( {include: {model: List, where: {userId: userId}}})
+  //maybe add titles or other variables later
+  res.render('lists', { 
+    lists, 
+    tasks, 
+    userId 
+  })
 }))
 //Route to get new list form
 router.get('/form', csrfProtection, asyncHandler(async(req, res) => {
