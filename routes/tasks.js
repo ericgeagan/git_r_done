@@ -215,5 +215,14 @@ router.delete('/:id(\\d+)/delete', isLoggedIn, asyncHandler(async (req, res, nex
 	else { res.json({"message":"Delete Failed"})}
 }))
 
-
+//CHECKBOX EDITING COMPLETED OR NOT ROUTE
+router.put('/:id(\\d+)/edit', isLoggedIn, asyncHandler( async(req,res,next) => {
+	const taskId = parseInt(req.params.id)
+	const task = await Task.findByPk(taskId)
+	const updatedTask = await task.update(req.body)
+	await updatedTask.save()
+	res.json({"update":"successful"})
+	
+	
+}))
 module.exports = router
