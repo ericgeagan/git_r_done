@@ -19,7 +19,9 @@ block content
               each list in lists
                 //-   //- Click listener to display tasks in list.
                 li(class=`listItem_${list.id}`)= list.name
-                a(href='lists/' + list.id + '/edit') Edit
+
+                a(href='lists/' + list.id + '/edit' id=`edit_${list.id}`) Edit
+                button(class="delete-list-button" id=`dlb${list.id}`) Delete
                 //- End List population
 
 
@@ -57,4 +59,4 @@ block content
               div Task
               div Done?
               tr(id='taskTableData')
-      
+
