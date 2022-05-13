@@ -3,7 +3,7 @@ var express = require('express');
 const req = require('express/lib/request');
 var router = express.Router();
 const bcrypt = require("bcryptjs")
-
+const { isLoggedIn } = require('../utils.js')
 
 // Internal Modules
 const db = require('../db/models')
@@ -16,7 +16,7 @@ const { requireAuth } = require('../auth')
 //variable we might need
 
 //route to get all lists
-router.get('/', csrfProtection, asyncHandler(async(req, res) => {
+router.get('/', csrfProtection, isLoggedIn, asyncHandler(async(req, res) => {
   if (req.session.auth === undefined) {
     // If not logged in, and user clicks on the home icon
     res.redirect('../');
@@ -37,7 +37,7 @@ router.get('/', csrfProtection, asyncHandler(async(req, res) => {
   })
 }))
 //Route to get new list form
-router.get('/form', csrfProtection, asyncHandler(async(req, res) => {
+router.get('/form', csrfProtection, isLoggedIn, asyncHandler(async(req, res) => {
   const createlist = await db.List.build();
   res.render('list-form', {
     title: 'New List',
@@ -46,7 +46,7 @@ router.get('/form', csrfProtection, asyncHandler(async(req, res) => {
   });
 }));
 //GET SPECIFIC LIST ROUTE
-router.get('/:listId', csrfProtection, asyncHandler(async(req, res) => {
+router.get('/:listId', csrfProtection, isLoggedIn, asyncHandler(async(req, res) => {
    //grab id from the params
    let listId = req.params.listId;
    const userId = req.session.auth.userId;
@@ -72,7 +72,7 @@ router.get('/:listId', csrfProtection, asyncHandler(async(req, res) => {
   ];
 
 //LIST POST ROUTE
-  router.post('/', csrfProtection, listValidators,
+  router.post('/', csrfProtection, isLoggedIn, listValidators,
     asyncHandler(async (req, res) => {
       const userId = req.session.auth.userId;
       const {
@@ -102,14 +102,14 @@ router.get('/:listId', csrfProtection, asyncHandler(async(req, res) => {
     }));
 
 
-  router.get('/:id(\\d+)/edit', csrfProtection, asyncHandler( async ( req,res )=>{
+  router.get('/:id(\\d+)/edit', csrfProtection, isLoggedIn, asyncHandler( async ( req,res )=>{
     const listId = req.params.id;
     const list = await db.List.findByPk(listId);
 
 
     res.render('edit-list-form', {listName: list.name, listId, csrfToken: req.csrfToken()})
   }))
-  router.post('/:id(\\d+)/edit', csrfProtection, listValidators,
+  router.post('/:id(\\d+)/edit', csrfProtection, isLoggedIn, listValidators,
     asyncHandler(async (req, res) => {
       const listId = parseInt(req.params.id, 10);
       const listToUpdate = await db.List.findByPk(listId);
@@ -142,7 +142,7 @@ router.get('/:listId', csrfProtection, asyncHandler(async(req, res) => {
     }));
 
 
-  router.get('/:id(\\d+)/delete', csrfProtection,
+  router.get('/:id(\\d+)/delete', csrfProtection, isLoggedIn,
 
   asyncHandler(async (req, res) => {
         console.log("DELETE ROUTE HIT")
