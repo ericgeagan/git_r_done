@@ -84,10 +84,21 @@ const deleteTaskCallBack = async (e) => {
    await fetch(`/tasks/${deleteButtonId}/delete`,
   { method: "DELETE"}
   ).then(res=>res.json()).then(data=>console.log(data))
-  
-
-
 }
+//delete lists callback
+const deleteListCallBack = async (e) => {
+  e.stopPropagation();
+  e.preventDefault();
+  const deleteListButton = e.target;
+  const deleteListId = deleteListButton.getAttribute('id').slice(3);
+  const relevantList = document.getElementById(`dlb${deleteListId}`);
+  relevantList.remove();
+
+    await fetch(`/lists/${deleteListId}/delete`, {
+      method: "DELETE"
+    }).then(res=>res.json()).then(data=>console.log(data))
+}
+
   //Show Clicked Tasks Details
 //   async function showDetails(taskId) {
 //     const taskDetails = await fetch(`/tasks/${taskId}`, {
@@ -100,8 +111,8 @@ const deleteTaskCallBack = async (e) => {
 //   .then(response => response.json())
 //   //Creates table elements and assigns task data
 //   .then(data => {
-     
-      
+
+
 // //finding the HTML containers for the details info
 //       const taskName = document.getElementById('')
 //       const priority = document.getElementById('')
@@ -139,7 +150,7 @@ async function showDetails(taskId) {
   const clickedTask = await fetch(`/tasks/${taskId}`)
   .then(res => res.json())
   .then(taskData=>{
-    
+
 
       //finding the HTML containers for the details info
       const taskName = document.getElementById('taskName')
@@ -177,7 +188,8 @@ async function showDetails(taskId) {
     deleteTaskButton.innerText = 'DELETE TASK'
 
     taskDeleteButtonContainer.appendChild(deleteTaskButton)
-    
+
+
 
     deleteTaskButton.addEventListener('click', deleteTaskCallBack)
 
@@ -186,8 +198,26 @@ async function showDetails(taskId) {
 
 // ON WINDOW LOAD ---------------------------------
 window.addEventListener("load",  () => {
-
-
+  //console.log(document.querySelectorAll('.delete-list-button'))
+  const listDeleteButton = document.querySelectorAll('.delete-list-button');
+  listDeleteButton.forEach(button=> {
+    button.addEventListener('click', async (e) => {
+      let currentB = e.target;
+      let currentId =currentB.getAttribute('id').slice(3);
+      // items to be removed
+      let deletedListItem = document.querySelector(`.listItem_${currentId}`)
+      let deletedDelete = document.getElementById(`dlb${currentId}`)
+      let deletedEdit = document.getElementById(`edit_${currentId}`)
+      // delete the elements
+      deletedListItem.remove()
+      deletedDelete.remove()
+      deletedEdit.remove()
+      // fetch data from db to be removed
+      await fetch(`/lists/${currentId}/delete`, {
+        method: "DELETE"
+      }).then(res=>res.json()).then(data=>console.log(data))
+    })
+  })
  //Populates Task Table with all tasks respective to that list.
   const lists = document.querySelector(".lists");
   const allTasks = document.getElementById('allTasks');
@@ -224,6 +254,7 @@ window.addEventListener("load",  () => {
   allTasks.addEventListener('click', getAllTasksForLoggedInUser)
 //add event listener for clicking task and displaying its details
   taskDetailPane.addEventListener('click', taskDetailCallBack )
-  
+
+// delete button listener for lists
 
 });

@@ -133,15 +133,16 @@ router.get('/:listId', csrfProtection, isLoggedIn, asyncHandler(async(req, res) 
     }));
 
 
-  router.get('/:id(\\d+)/delete', csrfProtection, isLoggedIn,
-
-  asyncHandler(async (req, res) => {
-        console.log("DELETE ROUTE HIT")
+  router.delete('/:id(\\d+)/delete', asyncHandler(async (req, res) => {
+ console.log('******************************HIT IT')
       const listId = parseInt(req.params.id, 10);
       const list = await db.List.findByPk(listId);
-      await list.destroy();
-    //   res.redirect('/lists');
-    res.redirect('/lists')
+      if(list) {
+        list.destroy()
+      } else {
+        res.json({message: "failed to delete list"})
+      }
+
     }));
 
 
