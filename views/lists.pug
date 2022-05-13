@@ -23,6 +23,27 @@ block content
                 //- End List population
 
 
+    div(id='task-detail-pane')
+      div(class="task_pane_titles") Task Name
+        span(id='taskName')
+      div(class="task_pane_titles") Priority
+        span(id='priority')
+      div(class="task_pane_titles") Due Date
+        span(id='dueDate')
+      div(class="task_pane_titles") Start Date
+        span(id='startDate')
+      div(class="task_pane_titles") Completed?
+        span(id='completed')
+      div(class="task_pane_titles") Estimated Time
+        span(id='estimatedTime')
+      div(class="task_pane_titles") Note
+        span(id='note')
+      div(class="task_pane_titles") List ID
+        span(id='listId')
+      div(class="task_pane_titles") Created At
+        span(id='createdAt')
+      div(class="task_pane_titles") Updated At
+        span(id='updatedAt')
     //- Main task list - will be populated after selecting a list.
     div(id='task-content-wrapper')
       //- Task List Wrapper
@@ -34,24 +55,3 @@ block content
               div Task
               div Done?
               tr(id='taskTableData')
-        div(id='task-detail-pane')
-          div Task Name
-            span(id='taskName')
-          div Priority
-            span(id='priority') 
-          div Due Date
-            span(id='dueDate')
-          div Start Date
-            span(id='startDate')
-          div Completed?
-            span(id='completed')
-          div Estimated Time
-            span(id='estimatedTime')
-          div Note
-            span(id='note')
-          div List ID
-            span(id='listId')
-          div Created At
-            span(id='createdAt')
-          div Updated At
-            span(id='updatedAt')
