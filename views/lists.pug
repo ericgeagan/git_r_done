@@ -23,14 +23,35 @@ block content
                 //- End List population
 
 
+    div(id='task-detail-pane')
+      div(class="task_pane_titles") Task Name
+        span(id='taskName')
+      div(class="task_pane_titles") Priority
+        span(id='priority')
+      div(class="task_pane_titles") Due Date
+        span(id='dueDate')
+      div(class="task_pane_titles") Start Date
+        span(id='startDate')
+      div(class="task_pane_titles") Completed?
+        span(id='completed')
+      div(class="task_pane_titles") Estimated Time
+        span(id='estimatedTime')
+      div(class="task_pane_titles") Note
+        span(id='note')
+      div(class="task_pane_titles") List ID
+        span(id='listId')
+      div(class="task_pane_titles") Created At
+        span(id='createdAt')
+      div(class="task_pane_titles") Updated At
+        span(id='updatedAt')
     //- Main task list - will be populated after selecting a list.
     div(id='task-content-wrapper')
       //- Task List Wrapper
       div(id='table-wrapper')
         a(href='/tasks/form') Create new task form
-        table
+        table(class='taskTable')
           tr
-            th Task
-            th Completed?
+            th(class="table_header" id="task_header")
+              div Task
+              div Done?
               tr(id='taskTableData')
-              div(id='task-detail-pane')

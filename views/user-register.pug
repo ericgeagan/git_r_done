@@ -23,13 +23,13 @@ block content
                 form(action='/users/register' method='post')
                     input(type='hidden' name='_csrf' value=csrfToken)
                     div(class='input-lg')                    
-                        +field('', "emailAddress", null, 'text', "Email")
+                        +field('', "emailAddress", user.email, 'text', "Email")
                     div(class='input-lg')                        
-                        +field('', "username", null, 'text', "Username")
+                        +field('', "username", user.username, 'text', "Username")
                     div(class='input-lg')
-                        +field('', "Password", null, 'password', 'Password')
-                    //- div(class='input-lg')                        
-                    //-     +field("Confirm Password", "confirmPassword", "", 'password' )
+                        +field('', "password", null, 'password', 'Password')
+                    div(class='input-lg')                        
+                        +field("", "confirmPassword", null, "password", 'Re-Enter Password' )
                     //- div(class='py-4')
                     button(type='submit' class='btn btn-primary btn-block login-btn') Sign up!
                     //- a(href='/' class='btn btn-warning ml-2') Cancel
