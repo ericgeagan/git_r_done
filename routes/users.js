@@ -11,6 +11,7 @@ const { User } = db
 const { asyncHandler, csrfProtection, handleValidationErrors, check, validationResult } = require('../utils');
 const { route } = require('.');
 const { loginUser, restoreUser, logoutUser } = require('../auth.js')
+const { isAlreadyLoggedIn } = require('../utils.js')
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
@@ -64,14 +65,14 @@ const registerValidators = [
 
 
 // Register Route
-router.get('/register', csrfProtection, (req, res) => {
-  const user = db.User.build()
+router.get('/register', csrfProtection, isAlreadyLoggedIn, asyncHandler(async (req, res, next) => {
+  const user = await db.User.build()
   res.render('user-register', {
     // title: 'Register',
     user,
     csrfToken: req.csrfToken()
   })
-})
+}))
 
 // Create new user
 router.post('/register', csrfProtection, registerValidators, asyncHandler(async (req, res, next) => {
@@ -142,7 +143,7 @@ function getRandomIcon() {
 }
 
 // Login Routes
-router.get('/login', csrfProtection, asyncHandler(async(req, res) => {
+router.get('/login', csrfProtection, isAlreadyLoggedIn, asyncHandler(async(req, res) => {
   res.render('user-login', {
     title: 'Login',
     csrfToken: req.csrfToken(),
@@ -222,14 +223,14 @@ router.get('/logout', asyncHandler(async(req, res) => {
 
   logoutUser(req, res);
 
-  res.redirect('/users/login')
+  res.redirect('../')
 }))
 
 
 //DEMO USER LOGIN ROUTE
 
 
-router.get('/demologin', csrfProtection, asyncHandler(async(req, res) => {
+router.get('/demologin', csrfProtection, isAlreadyLoggedIn, asyncHandler(async(req, res) => {
   const user = await db.User.findByPk(1)
 
   loginUser(req, res, user);

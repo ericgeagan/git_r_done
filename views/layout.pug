@@ -4,33 +4,46 @@ html
       block head
         title="Git_R_Done"
         link(rel='stylesheet' href='/stylesheets/matts.css')
+        link(rel='icon' type="image/x-icon" href='/icons/gitrdoneIcon.png')
   body
     div(class="navbar_container")
       a(href="/lists")
-        img(class="navbar_left_logo" src="icons/img.png" href="/lists")
-      h2(id='nav_title') Git R Done!
-      div(id="navbar_right")
-        a(href="/users/login" class="nav_link" id="login") Log in
-
-        a(href="/users/logout" class="nav_link" id='logOut') Log Out
-        a(href="/users/demologin" class="nav_link" id='demo') Demo User
-        select(type="dropdown" class="nav_link" id="Menu") Menu
+        img(class="navbar_left_logo" src="icons/gitrdoneMenu.png" href="/lists")
+      div(class="navbar_right")
+        if userId === undefined
+          a(href="/users/demologin" class="nav_link" id='demo') Demo User
+          a(href="/users/login" class="nav_link" id="login") Log in
+          a(href='/users/register' class='signUp') Sign up for free
+        else 
+          a(href="/users/logout" class="signUp" id='logout') Log Out
+        //- select(type="dropdown" class="nav_link" id="Menu") Menu
+    div(class="navbar_border")
     block content
     div(class="nav_footer_container")
-      
-        ul(class="nav_stack")
-          li(class="footer_headings") Technologies
-          li(class="footer_subs") Javascript
-          li(class="footer_subs") Express
-          li(class="footer_subs") Pug
-          li(class="footer_subs") Postgresql
-          li(class="footer_subs") Sequelize
-          li(class="footer_subs") Nodejs
-        ul(class="nav_stack")
-          li(class="footer_headings") Programmers
-          li(class="footer_subs") Eric Geagan
-          li(class="footer_subs") Allen Faughn
-          li(class="footer_subs") Andrew Wilkinson
-          li(class="footer_subs") Matthew Hautala
-
-          //- Repeat lines 14-17 for rest of groupings
+      div(class="footer-container")
+        div(class="footer-items")
+          ul(class="nav_stack")
+            li(class="footer_headings") Technologies
+            li(class="footer_subs")
+              a(class='footer-link no-link') JavaScript           
+            li(class="footer_subs")
+              a(class='footer-link no-link') Express           
+            li(class="footer_subs")
+              a(class='footer-link no-link') Pug
+            li(class="footer_subs")
+              a(class='footer-link no-link') PostgreSQL
+            li(class="footer_subs")
+              a(class='footer-link no-link') Sequelize
+            li(class="footer_subs")
+              a(class='footer-link no-link') NodeJS
+          ul(class="nav_stack2")
+            li(class="footer_headings") Developers
+            li(class="footer_subs")
+              a(href="https://github.com/ericgeagan" class='footer-link') Eric Geagan
+            li(class="footer_subs")
+              a(href="https://github.com/aFaughn" class='footer-link') Allen Faughn
+            li(class="footer_subs")
+              a(href="https://github.com/adub671" class='footer-link') Andrew Wilkinson
+            li(class="footer_subs")
+              a(href="https://github.com/HMH970" class='footer-link') Matthew Hautala
+            //- Repeat lines 14-17 for rest of groupings
