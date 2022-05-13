@@ -29,7 +29,10 @@ const taskValidators = [
 
 //Get new task form
 router.get('/form', csrfProtection, asyncHandler(async(req, res) => {
-	const lists = await db.List.findAll()
+	const userId = req.session.auth.userId;
+	const lists = await db.List.findAll({
+		where: {userId}
+	})
 	const task = await db.Task.build();
 		res.render('tasks-form', {
 			title: 'New Task',

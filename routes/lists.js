@@ -17,6 +17,7 @@ const { requireAuth } = require('../auth')
 
 //route to get all lists
 router.get('/', csrfProtection, asyncHandler(async(req, res) => {
+
     const userId = req.session.auth.userId
     // grab all lists from the db
     //const sessi = await db.Session.findAll()

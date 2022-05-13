@@ -1,0 +1,100 @@
+label {
+    font-family: 'arial';
+    font-weight: bold;
+}
+#form-wrapper {
+    display: flex;
+    flex-direction: column;
+}
+#task-form {
+    margin-right: 25%;
+    margin-left: 25%;
+    margin-top: 2%;
+    margin-bottom: 5%;
+    display: flex;
+    flex-direction: column;
+    font-size: 18px;
+    background-color: white;
+    padding-left: 20px;
+    padding-right: 20px;
+    border: 2px solid black;
+    border-radius: 7px;
+}
+#task-form > input {
+    height: 50px;
+    font-size: 30px;
+    padding-left: 5px;
+    border: 1px solid gray;
+    border-radius: 7px;
+}
+#select-list-dropdown {
+    height: 50px;
+    font-size: 30px;
+    padding-left: 5px;
+    border-radius: 7px;
+}
+label {
+    margin: auto;
+    padding-top: 20px;
+}
+.task-priority {
+    margin-top: 25px;
+}
+/* body {
+    background-color: #0060BF;
+} */
+#sub-button {
+    height: 50px;
+    width: 200px;
+    margin: auto;
+    background-color: dodgerblue;
+    font-family: arial;
+    font-size: 28px;
+    border-radius: 7px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    border: 0px solid white;
+    color: white;
+}
+#sub-button:hover {
+    background-color: dodgerblue;
+    border-radius: 7px;
+}
+#taskNote {
+    height: 50px;
+    border-radius: 7px;
+}
+p {
+    margin: auto;
+    color: white;
+}
+#go-back {
+    background-color: rgb(215, 231, 245);
+    height: 35px;
+    width: 95px;
+    font-family: arial;
+    position: absolute;
+    z-index: 1;
+    border-top: 2px solid rgb(215, 231, 245);
+    border-radius: 0px 0px 7px 7px;
+    border-left: 2px solid black;
+    border-right: 2px solid black;
+    border-bottom: 2px solid black;
+    margin-top: -2px;
+}
+a {
+    text-decoration: none;
+}
+#go-back p {
+    padding: 9px;
+    color: black;
+}
+#title {
+    margin: auto;
+    font-family: arial;
+}
+#taskNote {
+    font-family: arial;
+    font-size: 28px;
+    height: 100px;
+}
