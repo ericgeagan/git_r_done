@@ -136,7 +136,8 @@ function getRandomIcon() {
   const list = [
     'allen',
     'eric',
-    'matt'
+    'matt',
+    'andrew'
   ]
 
   return list[getRandomInt(list.length)]
@@ -223,7 +224,7 @@ router.get('/logout', asyncHandler(async(req, res) => {
 
   logoutUser(req, res);
 
-  res.redirect('../')
+  res.redirect('/users/login')
 }))
 
 
