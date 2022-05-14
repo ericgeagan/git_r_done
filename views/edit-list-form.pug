@@ -1,11 +1,14 @@
+extends layout.pug
 include utils.pug
 
-+validationErrorSummary(errors)
-div(id='form-wrapper') Edit List #{listId}
-  form(id='edit-list-form' action=`/lists/${listId}/edit` method='post')
-    input(type='hidden' name='_csrf' value=csrfToken)
-    label List Name *
-    input(type='text' name='name' class='list-name' value=listName required)
-    button(type='submit') Edit
+block content 
+  link(rel='stylesheet' href='/stylesheets/task-form.css')
+  div(id='form-wrapper') 
+    form(id='list-form' action=`/lists/${listId}/edit` method='post')
+      +validationErrorSummary(errors)
+      input(type='hidden' name='_csrf' value=csrfToken)
+      label List Name *
+      input(type='text' name='name' class='list-name' value=listName required)
+      button(type='submit' id='list-submit') Edit
 
 

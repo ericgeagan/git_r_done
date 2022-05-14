@@ -2,7 +2,6 @@ extends layout.pug
 include utils.pug
 
 block content
-  +validationErrorSummary(errors)
   div(id='form-wrapper')
     link(rel='stylesheet' href='/stylesheets/task-form.css')
     form(id='task-form' action='/tasks' method='post')
@@ -11,6 +10,8 @@ block content
           p Go Back
       div(id='title')
         h1(id='form-header') Create New Task
+      +validationErrorSummary(errors)
+      p Required fields are marked with *
       input(type='hidden' name='_csrf' value=csrfToken)
       label Task Name *
       input(type='text' name='name' class='list-name' required value=task.name placeholder='Enter a task name')
@@ -31,4 +32,3 @@ block content
       label Note
       textarea(name='note' value=task.note id='taskNote' placeholder='Anything else we should note? (Limit 280 chars)')
       button(type='submit' id='sub-button') Submit
-    p Required fields are marked with *

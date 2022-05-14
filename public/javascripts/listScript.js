@@ -135,12 +135,13 @@ const deleteTaskCallBack = async (e) => {
   e.preventDefault();
   const deleteButton = e.target;
   const deleteButtonId = deleteButton.getAttribute('id').slice(7);
+  // Remove task from tasklist on right side
   const relevantTask = document.getElementById(`task-row-${deleteButtonId}`);
   relevantTask.remove()
 
    await fetch(`/tasks/${deleteButtonId}/delete`,
   { method: "DELETE"}
-  ).then(res=>res.json()).then(data=>console.log(data))
+  ).then(res=>res.json()).then(data=> data)
 }
 
 //delete lists callback
@@ -176,7 +177,9 @@ async function showDetails(taskId) {
     const createdAt = document.getElementById('createdAt')
     const updatedAt = document.getElementById('updatedAt')
     const taskDeleteButtonContainer = document.getElementById('taskDeleteButtonContainer')
+    const taskEditButtonContainer = document.getElementById('taskEditButtonContainer')
     const deleteButtonCheck = document.querySelector('.deleteTaskButton')
+    const editButtonCheck = document.querySelector('.editTaskButton')
 
     taskName.innerText = taskData.name
     priority.innerText = taskData.priority
@@ -191,20 +194,32 @@ async function showDetails(taskId) {
 
     //Removes a button if it exists from another list being clicked so only 1 delete button gets displayed
     if (deleteButtonCheck) {
-    taskDeleteButtonContainer.removeChild(deleteButtonCheck)
+      taskDeleteButtonContainer.removeChild(deleteButtonCheck)
     }
+    if (editButtonCheck) {
+      taskEditButtonContainer.removeChild(editButtonCheck)
+    }
+    // Create Delete Button
     const deleteTaskButton = document.createElement('button');
     deleteTaskButton.setAttribute('type','submit')
-    deleteTaskButton.setAttribute('class','deleteTaskButton')
+    deleteTaskButton.setAttribute('class','delete-list-button')
     deleteTaskButton.setAttribute('id',`delete-${taskId}`)
-    deleteTaskButton.innerText = 'DELETE TASK'
+    deleteTaskButton.innerText = 'DELETE'
+
+    // Create Edit Button
+    const editTaskButton = document.createElement('a')
+    editTaskButton.setAttribute('type', 'submit')
+    editTaskButton.setAttribute('class', 'editTaskButton')
+    editTaskButton.setAttribute('id', `edit-${taskId}`)
+    editTaskButton.innerText = 'EDIT'
+    editTaskButton.href = `/tasks/${taskId}/edit`
 
     taskDeleteButtonContainer.appendChild(deleteTaskButton)
+    taskEditButtonContainer.appendChild(editTaskButton)
 
 
 
     deleteTaskButton.addEventListener('click', deleteTaskCallBack)
-
   })
 }
 
