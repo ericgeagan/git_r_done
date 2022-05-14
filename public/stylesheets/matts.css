@@ -11,6 +11,7 @@
 .icon {
     width: 20px;
     height: 20px;
+    padding: 3px 3px 0 3px;
 }
 
 .linkName {
@@ -71,6 +72,10 @@
     line-height: 22px;
 }
 
+#allTasks {
+    margin-bottom: 5px;
+}
+
 #demo,
 #Menu,
 #logout,
@@ -97,7 +102,7 @@
     /* float: right; */
     text-decoration: none;
     color: #fff;
-    background-color: #d24b03;
+    background-color: #2AB27B;
     padding: 11px 32px 12px;
     margin-bottom: 0;
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -198,11 +203,11 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-
+    /* margin-bottom: 220px; */
 }
 
 .lists {
-    background-color: darkgray;
+    background-color: #fff;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -215,7 +220,7 @@
 }
 
 #logo-container {
-    background-color: darkgrey;
+    background-color: #fff;
     padding-top: 10px;
     margin-top: 10px;
 }
@@ -223,26 +228,32 @@
 #logo-container > a{
     text-decoration: none;
     width: 178px;
+    color: black;
     background-color: #fff;
+    border: 2px solid #0060bf;
     border-radius: 5px;
     padding-left: 10px;
     padding-right: 10px;
-    margin-left: 10px;
+    margin-left: 25px;
     margin-top: 10px;
     text-align: center;
     justify-content: center;
     align-items: center;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 .lists > li {
     background-color: #fff;
     list-style-type: none;
     margin-right: 10px;
-    border-top: 1px solid #0060bf;
-    border-bottom: 1px solid #0060bf;
+    /* border-top: 1px solid #0060bf;
+    border-bottom: 1px solid #0060bf; */
+    border: 2px solid #0060bf;
     width: 178px;
     padding: 5px 5px 0px 5px;
     align-items: center;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    cursor: pointer;
 }
 
 .lists > a {
@@ -264,8 +275,9 @@
 }
 
 #side-nav-bar {
-    background-color: darkgray;
-    margin-top: 10px;
+    background-color: #fff;
+    /* margin-top: 10px; */
+    /* border-radius: 5px; */
 }
 
 .footer_headings {
@@ -282,7 +294,6 @@
     list-style-type: none;
     padding: 2px 0;
     padding-left: 0;
-    margin-bottom: 4px;
 }
 
 .no-link {
@@ -290,15 +301,21 @@
 }
 
 .task_row {
-    background-color: #0060bf;
+    /* background-color: #0060bf; */
     white-space: nowrap;
     text-align: left;
     background-color: #fff;
+    cursor: pointer;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 .completed_rows {
     background-color: #009dff;
     text-align: center;
+}
+
+.completed_rows > input {
+    cursor: pointer;
 }
 
 #task_header {
@@ -313,12 +330,19 @@
     background-color: #0060bf;
 }
 
+#table-header {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
 #table-wrapper > a {
     background-color: #fff;
     margin: 0px 0px 0px 0px;
     padding: 0px 10px;
     border-radius: 5px;
     text-decoration: none;
+    border: 2px solid #0060bf;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    color: black;
 }
 
 #table-wrapper {
@@ -326,8 +350,9 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: darkgray;
-    margin-top: 10px;
+    background-color: #fff;
+    /* border-radius: 5px; */
+    /* margin-top: 10px; */
     padding-top: 20px;
     padding-left: 25px;
     padding-right: 25px;
@@ -343,13 +368,13 @@
     display: flex;
     flex-direction: column;
     text-align: center;
-    margin-top: 10px;
+    /* margin-top: 10px; */
     padding-top: 75px;
     padding-left: 25px;
     padding-right: 25px;
     margin-left: 25px;
     margin-right: 25px;
-
+    /* border-radius: 5px; */
 }
 
 .task_pane_titles {
@@ -362,14 +387,16 @@
     white-space: nowrap;
     border-bottom: 1px solid #0060bf;
     padding: 5px 5px 5px 5px;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 .task_pane_titles > span {
-    background-color: #009dff;
+    /* background-color: #009dff; */
     text-align: right;
     white-space: nowrap;
     font-weight: 400;
     margin-left: 20px;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 td {
@@ -383,15 +410,30 @@ td {
     margin:5px;
 }
 .delete-list-button,
- .button-div > a{
+.editTaskButton,
+.button-div > a {
     padding: 0px 2px 0px 2px;
     margin: 0px 5px 0px 5px;
-    border: 1px solid #0060bf;
     background-color: #fff;
     border-radius: 5px;
     text-decoration: none;
     font-size: 18px;
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-    color: #0060bf
+    cursor: pointer;
+}
+
+.button-div > a {
+    color: #2AB27B;
+    border: 1px solid #2AB27B;
+}
+
+.editTaskButton {
+    color: #2AB27B;
+    border: 1px solid #2AB27B;
+}
+
+.delete-list-button {
+    color: #6A4CA6;
+    border: 1px solid #6A4CA6;
 }
 

@@ -38,10 +38,12 @@ router.get('/', csrfProtection, asyncHandler(async(req, res) => {
 }))
 //Route to get new list form
 router.get('/form', csrfProtection, isLoggedIn, asyncHandler(async(req, res) => {
+  const userId = req.session.auth.userId;
   const createlist = await db.List.build();
   res.render('list-form', {
     title: 'New List',
     createlist,
+    userId,
     csrfToken: req.csrfToken(),
   });
 }));
@@ -105,9 +107,15 @@ router.get('/:listId', csrfProtection, isLoggedIn, asyncHandler(async(req, res) 
   router.get('/:id(\\d+)/edit', csrfProtection, isLoggedIn, asyncHandler( async ( req,res )=>{
     const listId = req.params.id;
     const list = await db.List.findByPk(listId);
+    const userId = req.session.auth.userId;
 
 
-    res.render('edit-list-form', {listName: list.name, listId, csrfToken: req.csrfToken()})
+    res.render('edit-list-form', {
+      listName: list.name, 
+      listId, 
+      userId,
+      csrfToken: req.csrfToken()
+    })
   }))
   router.post('/:id(\\d+)/edit', csrfProtection, isLoggedIn, listValidators,
     asyncHandler(async (req, res) => {
@@ -143,7 +151,7 @@ router.get('/:listId', csrfProtection, isLoggedIn, asyncHandler(async(req, res) 
 
 
   router.delete('/:id(\\d+)/delete', asyncHandler(async (req, res) => {
- console.log('******************************HIT IT')
+  // console.log('******************************HIT IT')
       const listId = parseInt(req.params.id, 10);
       const list = await db.List.findByPk(listId);
       const tasks = await db.Task.findAll({

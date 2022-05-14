@@ -97,7 +97,7 @@ router.post('/', csrfProtection, isLoggedIn, taskValidators, asyncHandler(async 
 	} = req.body
 
 	const validatorErrors = validationResult(req)
-	console.log('aaaaaaaaaaa', typeof priority, typeof estimatedTime)
+	// console.log('aaaaaaaaaaa', typeof priority, typeof estimatedTime)
 
 	if (validatorErrors.isEmpty()) {
 		const task = await Task.create({
@@ -148,6 +148,7 @@ router.get('/:id(\\d+)/edit', csrfProtection, isLoggedIn, asyncHandler(async (re
 		taskId,
 		lists,
 		task,
+		userId,
 		csrfToken: req.csrfToken(),
 	});
 }))
