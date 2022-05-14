@@ -138,25 +138,12 @@ const deleteTaskCallBack = async (e) => {
   // Remove task from tasklist on right side
   const relevantTask = document.getElementById(`task-row-${deleteButtonId}`);
   relevantTask.remove()
-
+  deleteButton.remove()
    await fetch(`/tasks/${deleteButtonId}/delete`,
   { method: "DELETE"}
   ).then(res=>res.json()).then(data=> data)
 }
 
-//delete lists callback
-// const deleteListCallBack = async (e) => {
-//   e.stopPropagation();
-//   e.preventDefault();
-//   const deleteListButton = e.target;
-//   const deleteListId = deleteListButton.getAttribute('id').slice(3);
-//   const relevantList = document.getElementById(`dlb${deleteListId}`);
-//   relevantList.remove();
-
-//     await fetch(`/lists/${deleteListId}/delete`, {
-//       method: "DELETE"
-//     }).then(res=>res.json()).then(data=>console.log(data))
-// }
 
 //Show Clicked Tasks Details
 async function showDetails(taskId) {
@@ -196,29 +183,30 @@ async function showDetails(taskId) {
     if (deleteButtonCheck) {
       taskDeleteButtonContainer.removeChild(deleteButtonCheck)
     }
-    if (editButtonCheck) {
-      taskEditButtonContainer.removeChild(editButtonCheck)
-    }
-    // Create Delete Button
+    //Creating delete task button
     const deleteTaskButton = document.createElement('button');
     deleteTaskButton.setAttribute('type','submit')
     deleteTaskButton.setAttribute('class','delete-list-button')
     deleteTaskButton.setAttribute('id',`delete-${taskId}`)
-    deleteTaskButton.innerText = 'DELETE'
-
-    // Create Edit Button
-    const editTaskButton = document.createElement('a')
-    editTaskButton.setAttribute('type', 'submit')
-    editTaskButton.setAttribute('class', 'editTaskButton')
-    editTaskButton.setAttribute('id', `edit-${taskId}`)
-    editTaskButton.innerText = 'EDIT'
-    editTaskButton.href = `/tasks/${taskId}/edit`
-
+    deleteTaskButton.innerText = 'DELETE TASK'
     taskDeleteButtonContainer.appendChild(deleteTaskButton)
+    //  same logic as above for edit button
+    if (editButtonCheck) {
+      taskEditButtonContainer.removeChild(editButtonCheck)
+      }
+    const editTaskButton = document.createElement('button');
+    editTaskButton.setAttribute('type','submit')
+    editTaskButton.setAttribute('class','editTaskButton')
+    editTaskButton.setAttribute('id',`edit-${taskId}`)
+    editTaskButton.innerText = 'EDIT TASK'
     taskEditButtonContainer.appendChild(editTaskButton)
 
-
-
+    editTaskButton.addEventListener('click',(e)=> {
+      const clickedButton = e.target;
+      const editTaskId = clickedButton.getAttribute('id').slice(5);
+      window.location.href = `/tasks/${editTaskId}/edit`;
+    })
+   
     deleteTaskButton.addEventListener('click', deleteTaskCallBack)
   })
 }
