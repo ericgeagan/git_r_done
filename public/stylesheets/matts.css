@@ -227,8 +227,8 @@
     background-color: #fff;
     list-style-type: none;
     margin-right: 10px;
-    border-top: 1px solid rgb(239, 236, 233);
-    border-bottom: 1px solid rgb(239, 236, 233);
+    border-top: 1px solid #0060bf;
+    border-bottom: 1px solid #0060bf;
     width: 178px;
     padding: 5px 5px 0px 5px;
     align-items: center;
@@ -368,3 +368,19 @@ td {
 .table_header {
     margin-top: 25px;
 }
+.button-div {
+    margin:5px;
+}
+.delete-list-button,
+ .button-div > a{
+    padding: 0px 2px 0px 2px;
+    margin: 0px 5px 0px 5px;
+    border: 1px solid #0060bf;
+    background-color: #fff;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 18px;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    color: #0060bf
+}
+
