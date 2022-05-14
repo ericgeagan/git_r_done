@@ -108,6 +108,29 @@
 }
 //delete tasks callback
 const deleteTaskCallBack = async (e) => {
+  const taskName = document.getElementById('taskName')
+  const priority = document.getElementById('priority')
+  const dueDate = document.getElementById('dueDate')
+  const startDate = document.getElementById('startDate')
+  const completed = document.getElementById('completed')
+  const estimatedTime = document.getElementById('estimatedTime')
+  const note = document.getElementById('note')
+  const listId = document.getElementById('listId')
+  const createdAt = document.getElementById('createdAt')
+  const updatedAt = document.getElementById('updatedAt')
+
+  taskName.innerText = '';
+  priority.innerText = '';
+  dueDate.innerText = '';
+  startDate.innerText = '';
+  completed.innerText = '';
+  estimatedTime.innerText = '';
+  note.innerText = '';
+  listId.innerText = '';
+  createdAt.innerText = '';
+  updatedAt.innerText = '';
+
+
   e.stopPropagation();
   e.preventDefault();
   const deleteButton = e.target;
