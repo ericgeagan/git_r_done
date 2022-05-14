@@ -143,19 +143,6 @@ const deleteTaskCallBack = async (e) => {
   ).then(res=>res.json()).then(data=>console.log(data))
 }
 
-//delete lists callback
-// const deleteListCallBack = async (e) => {
-//   e.stopPropagation();
-//   e.preventDefault();
-//   const deleteListButton = e.target;
-//   const deleteListId = deleteListButton.getAttribute('id').slice(3);
-//   const relevantList = document.getElementById(`dlb${deleteListId}`);
-//   relevantList.remove();
-
-//     await fetch(`/lists/${deleteListId}/delete`, {
-//       method: "DELETE"
-//     }).then(res=>res.json()).then(data=>console.log(data))
-// }
 
 //Show Clicked Tasks Details
 async function showDetails(taskId) {
@@ -196,13 +183,14 @@ async function showDetails(taskId) {
     if (deleteButtonCheck) {
     taskDeleteButtonContainer.removeChild(deleteButtonCheck)
     }
+    //Creating delete task button
     const deleteTaskButton = document.createElement('button');
     deleteTaskButton.setAttribute('type','submit')
     deleteTaskButton.setAttribute('class','deleteTaskButton')
     deleteTaskButton.setAttribute('id',`delete-${taskId}`)
     deleteTaskButton.innerText = 'DELETE TASK'
     taskDeleteButtonContainer.appendChild(deleteTaskButton)
-//--- 
+ same logic as above for edit button
     if (editButtonCheck) {
       taskEditButtonContainer.removeChild(editButtonCheck)
       }
@@ -218,12 +206,7 @@ async function showDetails(taskId) {
       const editTaskId = clickedButton.getAttribute('id').slice(5);
       window.location.href = `/tasks/${editTaskId}/edit`;
     })
-    //---
-
-    
-
-
-
+   
     deleteTaskButton.addEventListener('click', deleteTaskCallBack)
 
   })
