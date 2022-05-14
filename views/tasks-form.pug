@@ -2,16 +2,16 @@ extends layout.pug
 include utils.pug
 
 block content
+  link(rel='stylesheet' href='/stylesheets/task-form.css')
   div(id='form-wrapper')
-    link(rel='stylesheet' href='/stylesheets/task-form.css')
     form(id='task-form' action='/tasks' method='post')
       a(href='/lists')
         div(id='go-back')
           p Go Back
       div(id='title')
         h1(id='form-header') Create New Task
-      +validationErrorSummary(errors)
       p Required fields are marked with *
+      +validationErrorSummary(errors)
       input(type='hidden' name='_csrf' value=csrfToken)
       label Task Name *
       input(type='text' name='name' class='list-name' required value=task.name placeholder='Enter a task name')

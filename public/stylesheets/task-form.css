@@ -5,6 +5,7 @@ label {
 #form-wrapper {
     display: flex;
     flex-direction: column;
+    margin-bottom: 470px;
 }
 .alert {
 	color: red;
