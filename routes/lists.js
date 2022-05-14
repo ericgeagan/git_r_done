@@ -151,7 +151,7 @@ router.get('/:listId', csrfProtection, isLoggedIn, asyncHandler(async(req, res) 
 
 
   router.delete('/:id(\\d+)/delete', asyncHandler(async (req, res) => {
- console.log('******************************HIT IT')
+  // console.log('******************************HIT IT')
       const listId = parseInt(req.params.id, 10);
       const list = await db.List.findByPk(listId);
       const tasks = await db.Task.findAll({

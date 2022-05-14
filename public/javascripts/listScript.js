@@ -43,7 +43,7 @@
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({completed: !task.completed})
             })
-            .then(res=>res.json()).then(body=>console.log(body))
+            .then(res=>res.json()).then(body=> body)
         })
     })})
   }
@@ -231,7 +231,7 @@ window.addEventListener("load",  () => {
       // fetch data from db to be removed
       await fetch(`/lists/${currentId}/delete`, {
         method: "DELETE"
-      }).then(res=>res.json()).then(data=>console.log(data))
+      }).then(res=>res.json()).then(data=> data)
     })
 
       
