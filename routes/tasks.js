@@ -30,6 +30,10 @@ const taskValidators = [
 
 //Get new task form
 router.get('/form', csrfProtection, isLoggedIn, asyncHandler(async(req, res) => {
+	if (req.session.auth === undefined) {
+    // If not logged in, and user clicks on the home icon
+    res.redirect('../');
+  }
 	const userId = req.session.auth.userId;
 	const lists = await db.List.findAll({
 		where: {userId}
@@ -39,6 +43,7 @@ router.get('/form', csrfProtection, isLoggedIn, asyncHandler(async(req, res) => 
 			title: 'New Task',
 			lists,
 			task,
+			userId,
 			csrfToken: req.csrfToken(),
 		});
   }));

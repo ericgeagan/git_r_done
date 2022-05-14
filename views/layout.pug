@@ -8,7 +8,7 @@ html
   body
     div(class="navbar_container")
       a(href="/lists")
-        img(class="navbar_left_logo" src="icons/gitrdoneMenu.png" href="/lists")
+        img(class="navbar_left_logo" src="/icons/gitrdoneMenu.png")
       div(class="navbar_right")
         if userId === undefined
           a(href="/users/demologin" class="nav_link" id='demo') Demo User
@@ -39,7 +39,11 @@ html
           ul(class="nav_stack2")
             li(class="footer_headings") Developers
             li(class="footer_subs")
-              a(href="https://github.com/ericgeagan" class='footer-link') Eric Geagan
+              a(href="https://www.linkedin.com/in/eric-geagan-462323195/")
+                img(src="/icons/linkedin.png" class='icon')
+              a(href="https://github.com/ericgeagan" class='footer-link')
+                img(src="/icons/github.png" class='icon')
+              a(class="linkName") Eric Geagan
             li(class="footer_subs")
               a(href="https://github.com/aFaughn" class='footer-link') Allen Faughn
             li(class="footer_subs")
