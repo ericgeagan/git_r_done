@@ -148,6 +148,7 @@ router.get('/:id(\\d+)/edit', csrfProtection, isLoggedIn, asyncHandler(async (re
 		taskId,
 		lists,
 		task,
+		userId,
 		csrfToken: req.csrfToken(),
 	});
 }))
