@@ -36,8 +36,8 @@ block content
           p Go Back
       div(id='title')
         h1(id='form-header') Edit Task
-      +validationErrorSummary(errors)
       p Required fields are marked with *
+      +validationErrorSummary(errors)
       input(type='hidden' name='_csrf' value=csrfToken)
       input(type='hidden' name='id' value=task.id)
       label Task Name *

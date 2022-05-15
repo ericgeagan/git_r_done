@@ -27,3 +27,4 @@ Sequelize was the ORM of choice for Git R Done because of how nicely it integrat
 
 ## Conclusion and Next Steps
 
+I think we are mostly happy with Git r' Done's functionality, but we'd like to add the ability to add tags to tasks and add more options to filter the tasks the user can view on the page. The main page with all the tasks listed could be formatted and stylized much better, but that would take a lot more time and experience that we don't necessarily have right now (a lot more DOM manipulation, spend a day or two fully stylizing the entire page better, adding dynamic editing, etc). However, every other page is stylized for modern design, we are proud of our work on the site so far. 

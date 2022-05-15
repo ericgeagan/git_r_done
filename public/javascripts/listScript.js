@@ -43,7 +43,7 @@
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({completed: !task.completed})
             })
-            .then(res=>res.json()).then(body=>console.log(body))
+            .then(res=>res.json()).then(body=> body)
         })
     })})
   }
@@ -187,18 +187,19 @@ async function showDetails(taskId) {
     const deleteTaskButton = document.createElement('button');
     deleteTaskButton.setAttribute('type','submit')
     deleteTaskButton.setAttribute('class','deleteTaskButton')
+    deleteTaskButton.setAttribute('class','delete-list-button')
     deleteTaskButton.setAttribute('id',`delete-${taskId}`)
-    deleteTaskButton.innerText = 'DELETE TASK'
+    deleteTaskButton.innerText = 'DELETE'
     taskDeleteButtonContainer.appendChild(deleteTaskButton)
     //  same logic as above for edit button
     if (editButtonCheck) {
       taskEditButtonContainer.removeChild(editButtonCheck)
-      }
+    }
     const editTaskButton = document.createElement('button');
     editTaskButton.setAttribute('type','submit')
     editTaskButton.setAttribute('class','editTaskButton')
     editTaskButton.setAttribute('id',`edit-${taskId}`)
-    editTaskButton.innerText = 'EDIT TASK'
+    editTaskButton.innerText = 'EDIT'
     taskEditButtonContainer.appendChild(editTaskButton)
 
     editTaskButton.addEventListener('click',(e)=> {
@@ -230,7 +231,7 @@ window.addEventListener("load",  () => {
       // fetch data from db to be removed
       await fetch(`/lists/${currentId}/delete`, {
         method: "DELETE"
-      }).then(res=>res.json()).then(data=>console.log(data))
+      }).then(res=>res.json()).then(data=> data)
     })
 
       

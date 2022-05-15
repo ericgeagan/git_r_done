@@ -116,13 +116,25 @@ function getRandomQuote() {
   const quotes = [
     'The essence of being human is that one does not seek perfection.',
     'A year from now you may wish you had started today.',
-    "Everything’s impossible until somebody does it."
+    "Everything’s impossible until somebody does it.",
+    "If you cannot do great things, do small things in a great way.",
+    "Strive not to be a success, but rather to be of value.",
+    "Either you run the day, or the day runs you.",
+    "What you do speaks so loudly that I cannot hear what you say.",
+    "Happiness is not something ready made. It comes from your own actions.",
+    "It is never too late to be what you might have been."
   ]
 
   const authors = [
     'George Orwell',
     'Unknown',
-    'Bruce Wayne'
+    'Bruce Wayne',
+    'Napoleon Hill',
+    'Albert Einstein',
+    'Jim Rohn',
+    'Ralph Waldo Emerson',
+    'Dalai Lama',
+    'George Eliot'
   ]
 
   let index = getRandomInt(quotes.length)
