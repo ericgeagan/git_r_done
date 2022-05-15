@@ -186,8 +186,7 @@ async function showDetails(taskId) {
     //Creating delete task button
     const deleteTaskButton = document.createElement('button');
     deleteTaskButton.setAttribute('type','submit')
-    deleteTaskButton.setAttribute('class','deleteTaskButton')
-    deleteTaskButton.setAttribute('class','delete-list-button')
+    deleteTaskButton.setAttribute('class','deleteTaskButton delete-list-button')
     deleteTaskButton.setAttribute('id',`delete-${taskId}`)
     deleteTaskButton.innerText = 'DELETE'
     taskDeleteButtonContainer.appendChild(deleteTaskButton)
