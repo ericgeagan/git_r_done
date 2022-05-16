@@ -170,14 +170,14 @@ async function showDetails(taskId) {
 
     taskName.innerText = taskData.name
     priority.innerText = taskData.priority
-    dueDate.innerText = taskData.dueDate
-    startDate.innerText = taskData.startDate
+    dueDate.innerText = taskData.dueDate ? taskData.dueDate.substring(0, 10) : null
+    startDate.innerText = taskData.startDate ? taskData.startDate.substring(0, 10) : null
     completed.innerText = taskData.completed
     estimatedTime.innerText = taskData.estimatedTime
     note.innerText = taskData.note
     listId.innerText = taskData.listId
-    createdAt.innerText = taskData.createdAt
-    updatedAt.innerText = taskData.updatedAt
+    createdAt.innerText = taskData.createdAt ? taskData.createdAt.substring(0, 10) : null
+    updatedAt.innerText = taskData.updatedAt ? taskData.updatedAt.substring(0, 10) : null
 
     //Removes a button if it exists from another list being clicked so only 1 delete button gets displayed
     if (deleteButtonCheck) {
